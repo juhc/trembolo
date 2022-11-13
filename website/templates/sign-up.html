@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Регистрация
+{% endblock title %}
+
+{% block content %}
+    <h1>Регистрация</h1>
+    <form class="row g-3" method="post">
+        <div class="col-md-6">
+          <label for="inputFirstName4" class="form-label">Имя</label>
+          <input type="text" class="form-control" id="inputFirstName4">
+        </div>
+        <div class="col-md-6">
+          <label for="inputLastName4" class="form-label">Фамилия</label>
+          <input type="text" class="form-control" id="inputLastName4">
+        </div>
+        <div class="col-12">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail4">
+        </div>
+        <div class="col-12">
+          <label for="inputPhone4" class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="inputPhone4" maxlength="12" minlength="11" placeholder="+71234567890">
+        </div>
+        <div class="col-12">
+          <label for="inputCity" class="form-label">City</label>
+          <input type="text" class="form-control" id="inputCity">
+        </div>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Address</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword4">
+        </div>
+        <div class="col-md-6">
+          <label for="inputConfirmPassword4" class="form-label">Confitm Password</label>
+          <input type="password" class="form-control" id="inputConfirmPassword4">
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Sign up</button>
+        </div>
+      </form>
+{% endblock content %}

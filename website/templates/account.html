@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Вход
+{% endblock title %}
+
+{% block content %}
+    <h1>Вход</h1>
+    <form method="post">
+        <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <a href="{{url_for('account.login')}}"><button type="submit" class="btn btn-primary">Login</button></a>
+        <a href="{{url_for('account.sign_up')}}"><button type="button" class="btn btn-primary">Sign-up</button></a>
+        <a href="#"><button type="button" class="btn btn-primary">Забыли пароль?</button></a>
+    </form>
+{% endblock content %}
