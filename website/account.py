@@ -1,12 +1,20 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash
+from .forms import LoginForm
 
-account = Blueprint('account',__name__)
+account = Blueprint("account", __name__)
 
 
-@account.route('/login')
+@account.route("/login", methods=["POST", "GET"])
 def login():
-    return render_template('account.html')
+    form = LoginForm()
+    
+    if form.validate_on_submit():
+        flash('Вы успшено вошли в аккаунт.', category='success')
 
-@account.route('/sign-up')
+
+    return render_template("account.html", form=form)
+
+
+@account.route("/sign-up")
 def sign_up():
-    return render_template('sign-up.html')
+    return render_template("sign-up.html")

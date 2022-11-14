@@ -133,3 +133,11 @@ main {
 .footer-copiright {
     font-size: 20px;
 }
+
+.invalid {
+    background-color: #FF9898;
+}
+
+.invalid-text {
+    color:#FF9898;;
+}
