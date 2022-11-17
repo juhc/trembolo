@@ -11,3 +11,4 @@ class User(db.Model, UserMixin):
     address = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(128), nullable=False)
 
+

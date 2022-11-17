@@ -19,11 +19,11 @@ def create_app():
     app.register_blueprint(home, url_prefix="/")
     app.register_blueprint(account, url_prefix="/account")
     
-    
+    create_db(app)
     return app
 
 
 def create_db(app):
     with app.app_context():
-        if not os.path.exists(f'website/{DB_NAME}'):
+        if not os.path.exists(DB_NAME):
             db.create_all()

@@ -1,7 +1,6 @@
-from website import create_app, create_db
+from website import create_app
 
 app = create_app()
 
 if __name__ == "__main__":
-    create_db(app)
     app.run(debug=True)
