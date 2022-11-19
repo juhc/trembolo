@@ -1,5 +1,10 @@
 from flask_login import UserMixin
-from . import db
+from . import db, login_manager
+
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 class User(db.Model, UserMixin):

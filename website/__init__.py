@@ -1,9 +1,11 @@
 from flask import Flask
 from .main import SECRET_KEY, DB_NAME
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 import os
 
 db = SQLAlchemy()
+login_manager = LoginManager()
 
 
 def create_app():
@@ -18,7 +20,12 @@ def create_app():
 
     app.register_blueprint(home, url_prefix="/")
     app.register_blueprint(account, url_prefix="/account")
-    
+
+    login_manager.login_view = "account.login"
+    login_manager.login_message = "Для доступа к данной странице требуется авторизация"
+    login_manager.login_message_category = "error"
+    login_manager.init_app(app)
+
     create_db(app)
     return app
 
