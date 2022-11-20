@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Отзывы
+{% endblock title %}
+
+{% block content %}
+    <h1>Отзывы клиентов</h1> 
+    {% for review in reviews %}
+    <ul>
+        <li>{{ review.data }}</li>
+        <li>{{ review.date }}</li>
+        <li>{{ (User.query.filter_by(id=review.user_id).first()).name }} {{ (User.query.filter_by(id=review.user_id).first()).surname }}</li>
+    </ul>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <form method="POST">
+            {{ review_form.hidden_tag() }}
+            <div class="form-floating mb-3">
+                {{ review_form.data(class="form-control") }}
+                {{ review_form.data.label(for="floatingTextarea2") }}        
+            </div>
+            {{ review_form.submit(class="btn btn-primary") }}
+        </form>
+    {% endif %}
+{% endblock content %}

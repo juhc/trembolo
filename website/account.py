@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, url_for, redirect
+from flask import Blueprint, render_template, flash, url_for, redirect
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegisterForm
 from . import db
@@ -14,7 +14,7 @@ def login():
 
     if form.validate_on_submit():
         authenticate(form)
-        return redirect(url_for('home.index'))
+        return redirect(url_for('account.profile'))
 
     return render_template("account.html", form=form, user=current_user)
 
@@ -53,27 +53,19 @@ def registrate_user(form):
         password=generate_password_hash(form.password.data, method="sha256"),
     )
 
-    if User.query.filter_by(email=new_user.email).first():
-        flash("Аккаунт с таким электронным адресом уже существует")
-
-    if User.query.filter_by(phone=new_user.phone).first():
-        flash("Аккаунт с таким номером телефона уже существует")
-
-    else:
-        try:
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user)
-            flash("Ваш аккаунт успешно зарегистрирован", category="success")
-        except:
-            pass
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user)
+        flash("Ваш аккаунт успешно зарегистрирован", category="success")
+    except:
+        pass
 
 
 def authenticate(form):
     user = User.query.filter_by(email=form.email.data).first()
     if user:
         if check_password_hash(user.password, form.password.data):
-            flash("Вы успшено вошли в аккаунт", category="success")
             login_user(user)
         else:
             flash("Не получилось войти в аккаунт", category="error")
