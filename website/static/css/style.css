@@ -141,3 +141,10 @@ main {
 .invalid-text {
     color:#FF9898;;
 }
+
+.product_cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 37px;
+}

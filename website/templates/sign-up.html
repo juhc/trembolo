@@ -29,9 +29,9 @@
 
       {% for field in form if field.name not in ['csrf_token', 'submit'] %}
         {% if field.name == 'address' %}
-          {{ form_field_md6("col-mb-3", field, "form-control address", "form-control invalid address") }}
+          {{ form_field("col-mb-3", field, "form-control address", "form-control invalid address") }}
         {% else %}
-          {{ form_field_md6("col-md-6", field, "form-control", "form-control invalid") }}
+          {{ form_field("col-md-6", field, "form-control", "form-control invalid") }}
         {% endif %}
       {% endfor %}
 
@@ -47,7 +47,7 @@
     <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
 {% endblock scripts %}
 
-{% macro form_field_md6(div_class, field, field_class, error_field_class) %}
+{% macro form_field(div_class, field, field_class, error_field_class) %}
   <div class={{ div_class }}>
     {{ field.label(class="form-label") }}
     {% if field.errors %}

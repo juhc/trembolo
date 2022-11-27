@@ -14,7 +14,8 @@ def login():
 
     if form.validate_on_submit():
         authenticate(form)
-        return redirect(url_for('account.profile'))
+        if current_user.is_authenticated:
+            return redirect(url_for('account.profile'))
 
     return render_template("account.html", form=form, user=current_user)
 
@@ -68,5 +69,7 @@ def authenticate(form):
         if check_password_hash(user.password, form.password.data):
             login_user(user)
         else:
-            flash("Не получилось войти в аккаунт", category="error")
+            flash("Неправильный пароль", category="error")
+    else:
+        flash("Аккаунт с такой электронной почтой не найден", category="error")
 

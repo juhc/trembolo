@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from .main import SECRET_KEY, DB_NAME
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
+from flask_admin import Admin
+from .admin import AdminView
 import os
 
 db = SQLAlchemy()
@@ -13,9 +15,20 @@ def create_app():
     app.secret_key = SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
 
+    from .models import User, Review, Product
+
+    admin = Admin(app, template_mode='bootstrap4')
+    admin.add_view(AdminView(User, db.session))
+    admin.add_view(AdminView(Review, db.session))
+    admin.add_view(AdminView(Product, db.session))
+
     @app.errorhandler(404)
     def pageNotFound(error):
-        return render_template('404.html', user=current_user)
+        return render_template("404.html", user=current_user)
+    
+    @app.errorhandler(403)
+    def pageNotFound(error):
+        return render_template("403.html", user=current_user)
 
     db.init_app(app)
 
@@ -29,6 +42,7 @@ def create_app():
     login_manager.login_message = "Для доступа к данной странице требуется авторизация"
     login_manager.login_message_category = "error"
     login_manager.init_app(app)
+    
 
     create_db(app)
     return app

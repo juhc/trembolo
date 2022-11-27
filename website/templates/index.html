@@ -1,5 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Главная страница</h1>
+    <h1>Пицца</h1>
+    {{product_card(pizza)}}
+    <h1>Закуски</h1>
+    {{product_card(snacks)}}
+    <h1>Роллы</h1>
+    {{product_card(rolls)}}
+    <h1>Напитки</h1>
+    {{product_card(drinks)}}
 {% endblock content %}
+
+
+{% macro product_card(products) %}
+    <div class="product_cards">
+    {% for product in products %}
+    <div class="card" style="width: 18rem;">
+            <form action="{{ url_for('home.add_product_to_cart') }}" method="post">
+            <img src={{product.photo_url}} class="card-img-top" alt="product">
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">{{product.description}}</p>
+                <button class="btn btn-primary" type="submit">Добавить в корзину</button>
+            </div>
+            <input type="hidden" name="product_id", value="{{ product.id }}">
+            </form>
+    </div>
+    {% endfor %}
+    </div>
+{% endmacro %}
