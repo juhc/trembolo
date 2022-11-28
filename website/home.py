@@ -53,6 +53,7 @@ def add_product_to_cart():
                 "description": product.description,
                 "price": product.price,
                 "photo": product.photo_url,
+                "count": 1
             }
         }
 

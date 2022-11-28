@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Пицца</h1>
+    <h1 id="pizza_category">Пицца</h1>
     {{product_card(pizza)}}
-    <h1>Закуски</h1>
+    <h1 id="snacks_category">Закуски</h1>
     {{product_card(snacks)}}
-    <h1>Роллы</h1>
+    <h1 id="rolls_category">Роллы</h1>
     {{product_card(rolls)}}
-    <h1>Напитки</h1>
+    <h1 id="drinks_category">Напитки</h1>
     {{product_card(drinks)}}
 {% endblock content %}
 
