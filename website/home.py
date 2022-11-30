@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, redirect, request, session
+from flask import Blueprint, render_template, redirect, request, session, jsonify
 from flask_login import current_user
 from .forms import ReviewForm
 from .models import Review, User, Product
+import json
 from . import db
 
 home = Blueprint("home", __name__)
@@ -53,13 +54,13 @@ def add_product_to_cart():
                 "description": product.description,
                 "price": product.price,
                 "photo": product.photo_url,
-                "count": 1
+                "count": 1,
             }
         }
 
         if "shoppingcart" in session:
             if product_id in session["shoppingcart"]:
-                print("Товар уже в корзине")
+                return redirect(request.referrer)
             else:
                 session["shoppingcart"] = dict(
                     list(session["shoppingcart"].items()) + list(product_dict.items())
@@ -69,6 +70,31 @@ def add_product_to_cart():
 
         return redirect(request.referrer)
 
+
+@home.route("/increase-product", methods=["POST"])
+def increase_product():
+    if request.method == "POST":
+        product_id = str(json.loads(request.data)["productId"])
+        session["shoppingcart"][product_id]["count"] += 1
+        session.modified = True
+        return jsonify({})
+
+
+@home.route("/decrease-product", methods=["POST"])
+def decrease_product():
+    if request.method == "POST":
+        product_id = str(json.loads(request.data)["productId"])
+        session["shoppingcart"][product_id]["count"] -= 1
+        session.modified = True
+        return jsonify({})
+
+@home.route('/delete-product', methods=['POST'])
+def delete_product():
+    if request.method == 'POST':
+        product_id = str(json.loads(request.data)["productId"])
+        session["shoppingcart"].pop(product_id)
+        session.modified = True
+        return jsonify({})
 
 def mergedicts(dict1, dict2):
     if isinstance(dict1, list) and isinstance(dict2, list):

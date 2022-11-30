@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Trembola{% endblock %}</title>
     {% block styles %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     {% endblock styles %}
@@ -25,33 +26,40 @@
                     <li>
                         <a href="{{url_for('home.index')}}#pizza_category">Пицца</a>
                         <a href="{{url_for('home.index')}}#snacks_category">Закуски</a>
-                        <a href="{{url_for('home.index')}}#rolls_category">Роллы</a>
+                        <a href="{{url_for('home.index')}}#rolls_category">Десерты</a>
                         <a href="{{url_for('home.index')}}#drinks_category">Напитки</a>
                     </li>
                 </ul>
             </div>
 
             <div class="right">
-            <button class="btn header-buttons" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Корзина</button>
-                
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Корзина</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button class="btn header-buttons" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    {% if session["shoppingcart"] | length > 0 %}
+                        Корзина {{ session["shoppingcart"] | length }}
+                    {% else %}
+                        Корзина
+                    {% endif %}
+                </button>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                    aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Корзина</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                         <p>Ваш выбор</p>
                         {% set cart = session['shoppingcart'] %}
                         {% for product_id in cart %}
-                            <p> {{ product_id }} : {{ cart[product_id]['name'] }} : {{ cart[product_id]['price'] }}</p>
-                            <p id="{{product_id}}-count"> {{ cart[product_id]['count'] }} </p>
-                            <button onclick="increment_product({{product_id}})">+</button>
-                            <button onclick="decrement_product({{product_id}})">-</button>
-                            <hr>
+                        <p> {{ product_id }} : {{ cart[product_id]['name'] }} : {{ cart[product_id]['price'] }}</p>
+                        <p id="{{product_id}}-count"> {{ cart[product_id]['count'] }} </p>
+                        <button onclick="increment_product({{product_id}})">+</button>
+                        <button onclick="decrement_product({{product_id}})">-</button>
+                        <hr>
                         {% endfor %}
+                    </div>
                 </div>
-            </div>
                 {% if user.is_authenticated %}
                 <a href="{{url_for('account.profile')}}"><button class="header-buttons"
                         type="button">Профиль</button></a>
@@ -78,7 +86,9 @@
         </div>
     </footer>
     {% block scripts %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     {% endblock scripts %}

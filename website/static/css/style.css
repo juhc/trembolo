@@ -148,3 +148,7 @@ main {
     flex-wrap: wrap;
     column-gap: 37px;
 }
+
+.disabled-button {
+    display: none;
+}
