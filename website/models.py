@@ -44,7 +44,3 @@ class Cart(db.Model):
 class CartProduct(db.Model):
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id', ondelete='CASCADE'), primary_key=True,)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id', ondelete='CASCADE'), primary_key=True,)
-
-
-
-

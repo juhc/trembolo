@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_admin import Admin
 from .admin import AdminView
+import datetime
 import os
 
 db = SQLAlchemy()
@@ -14,6 +15,7 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+    app.permanent_session_lifetime = datetime.timedelta(minutes=30)
 
     from .models import User, Review, Product
 

@@ -19,6 +19,7 @@ function increment_product(product_id) {
         method: 'POST',
         body: JSON.stringify({ productId: product_id })
     })
+    total_products()
 }
 
 function decrement_product(product_id) {
@@ -28,13 +29,22 @@ function decrement_product(product_id) {
             method: 'POST',
             body: JSON.stringify({ productId: product_id })
         })
+        total_products()
     }
     else {
         fetch('/delete-product', {
             method: 'POST',
-            body: JSON.stringify({productId: product_id})
+            body: JSON.stringify({ productId: product_id })
         }).then((_res) => {
             window.location.href = '/';
         });
     }
+}
+
+function total_products() {
+    var counter = 0
+    for (var product_count of document.getElementsByClassName('productCount')) {
+        counter += parseInt(product_count.innerHTML)
+    }
+    document.getElementById('shoppingCart').innerHTML = 'Корзина ' + counter
 }

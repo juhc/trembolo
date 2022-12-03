@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 
 <head>
     <meta charset="utf-8">
@@ -36,7 +36,7 @@
                 <button class="btn header-buttons" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                     {% if session["shoppingcart"] | length > 0 %}
-                        Корзина {{ session["shoppingcart"] | length }}
+                        <div id="shoppingCart">Корзина {{ session["shoppingcart"] | length }}</div>
                     {% else %}
                         Корзина
                     {% endif %}
@@ -52,11 +52,13 @@
                         <p>Ваш выбор</p>
                         {% set cart = session['shoppingcart'] %}
                         {% for product_id in cart %}
+                        <div>
                         <p> {{ product_id }} : {{ cart[product_id]['name'] }} : {{ cart[product_id]['price'] }}</p>
-                        <p id="{{product_id}}-count"> {{ cart[product_id]['count'] }} </p>
+                        <p id="{{product_id}}-count" class="productCount"> {{ cart[product_id]['count'] }} </p>
                         <button onclick="increment_product({{product_id}})">+</button>
                         <button onclick="decrement_product({{product_id}})">-</button>
                         <hr>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -91,6 +93,9 @@
         crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        window.onload = total_products()
+    </script>
     {% endblock scripts %}
 </body>
 
