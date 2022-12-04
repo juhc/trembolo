@@ -33,13 +33,9 @@
             </div>
 
             <div class="right">
-                <button class="header-buttons" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                    {% if session["shoppingcart"] | length > 0 %}
-                    <div id="shoppingCart">Корзина {{ session["shoppingcart"] | length }}</div>
-                    {% else %}
+                <button class="header-buttons" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                    aria-controls="offcanvasRight">
                     <div id="shoppingCart">Корзина</div>
-                    {% endif %}
                 </button>
 
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"

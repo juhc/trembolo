@@ -1,7 +1,7 @@
 function increment_product(product_id) {
-    document.getElementById(product_id + "-count").innerHTML++;
     var product_price =  document.getElementById(product_id + "-price");
-    product_price.innerHTML = parseInt(product_price.innerHTML) + parseInt(document.getElementById(product_id + "-priceMenu").innerHTML)
+    product_price.innerHTML = parseInt(product_price.innerHTML) + parseInt(product_price.innerHTML)/parseInt(document.getElementById(product_id + "-count").innerHTML)
+    document.getElementById(product_id + "-count").innerHTML++;
     fetch('/increase-product', {
         method: 'POST',
         body: JSON.stringify({ productId: product_id })
@@ -11,9 +11,9 @@ function increment_product(product_id) {
 
 function decrement_product(product_id) {
     if (document.getElementById(product_id + "-count").innerHTML > 1) {
-        document.getElementById(product_id + "-count").innerHTML--;
         var product_price =  document.getElementById(product_id + "-price");
-        product_price.innerHTML = parseInt(product_price.innerHTML) - parseInt(document.getElementById(product_id + "-priceMenu").innerHTML)
+        product_price.innerHTML = parseInt(product_price.innerHTML) - parseInt(product_price.innerHTML)/parseInt(document.getElementById(product_id + "-count").innerHTML)
+        document.getElementById(product_id + "-count").innerHTML--;
         fetch('/decrease-product', {
             method: 'POST',
             body: JSON.stringify({ productId: product_id })
@@ -29,8 +29,8 @@ function decrement_product(product_id) {
             var cartDiv_removable = document.getElementById(product_id + '-productDiv');
             cart.removeChild(cartDiv_removable);
 
-            document.getElementById('product' + product_id).disabled = false;
             cart_change();
+            document.getElementById('product' + product_id).disabled = false;
         });
     }
 };
@@ -39,12 +39,12 @@ function decrement_product(product_id) {
 function cart_change() {
     total = get_total_by_class('productCount')
     if (total > 0) {
-        document.getElementById('shoppingCart').innerHTML = 'Корзина ' + total;
+        document.getElementById('shoppingCart').innerHTML = 'Корзина | ' + total;
         document.getElementById('cartHeader').innerHTML = 'Ваш выбор';
         document.getElementById('cartTotalPrice').innerHTML = get_total_by_class('productPrice');
     }
     else {
-        document.getElementById('shoppingCart').innerHTML = 'Корзина ';
+        document.getElementById('shoppingCart').innerHTML = 'Корзина';
         document.getElementById('cartHeader').innerHTML = 'Корзина пуста :(';
         
         var cart = document.getElementById('offcanvasRight');
