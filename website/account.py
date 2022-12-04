@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegisterForm
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+from .models import User, Cart
 
 account = Blueprint("account", __name__)
 
@@ -50,17 +50,18 @@ def registrate_user(form):
         surname=form.surname.data,
         email=form.email.data,
         phone=form.phone.data,
-        address=form.address.data,
         password=generate_password_hash(form.password.data, method="sha256"),
     )
-
     try:
         db.session.add(new_user)
         db.session.commit()
+        new_cart = Cart(user_id=User.query.filter_by(phone=form.phone.data).first().id)
+        db.session.add(new_cart)
+        db.session.commit()
         login_user(new_user)
         flash("Ваш аккаунт успешно зарегистрирован", category="success")
-    except:
-        pass
+    except Exception as e:
+        print(e)
 
 
 def authenticate(form):

@@ -28,8 +28,6 @@ class RegisterForm(FlaskForm):
     )
     phone = StringField("Номер телефона", validators=[DataRequired()],
     render_kw={"placeholder":"Укажите ваш номер телефона"})
-    address = StringField("Адрес", validators=[DataRequired()],
-    render_kw={"placeholder":"Укажите адрес"})
     password = PasswordField(
         "Пароль",
         validators=[

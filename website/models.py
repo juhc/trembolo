@@ -14,9 +14,7 @@ class User(db.Model, UserMixin):
     surname = db.Column(db.String(32), nullable=False)
     email = db.Column(db.String(128), unique=True, nullable=False)
     phone = db.Column(db.String(11), unique=True, nullable=False)
-    address = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(128), nullable=False)
-    reviews = db.relationship("Review")
 
 
 class Review(db.Model):
@@ -44,3 +42,4 @@ class Cart(db.Model):
 class CartProduct(db.Model):
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id', ondelete='CASCADE'), primary_key=True,)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id', ondelete='CASCADE'), primary_key=True,)
+    count = db.Column(db.Integer)

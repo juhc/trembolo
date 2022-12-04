@@ -17,12 +17,13 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     app.permanent_session_lifetime = datetime.timedelta(minutes=30)
 
-    from .models import User, Review, Product
+    from .models import User, Review, Product, Cart
 
     admin = Admin(app, template_mode='bootstrap4')
     admin.add_view(AdminView(User, db.session))
     admin.add_view(AdminView(Review, db.session))
     admin.add_view(AdminView(Product, db.session))
+    admin.add_view(AdminView(Cart, db.session))
 
     @app.errorhandler(404)
     def pageNotFound(error):

@@ -42,7 +42,12 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{url_for('static', filename='js/dist/jquery.maskedinput.js')}}" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@21.12.0/dist/js/jquery.suggestions.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@21.12.0/dist/js/jquery.suggestions.min.js"></script>  
+    <script>
+        jQuery(function ($) {
+        $("#phone").mask("+7 (999) 999-9999");
+    });
+    </script>
 {% endblock scripts %}
 
 {% macro form_field(div_class, field, field_class, error_field_class) %}

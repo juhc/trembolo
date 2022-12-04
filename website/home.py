@@ -43,10 +43,10 @@ def reviews():
     )
 
 
-@home.route("/add-to-cart", methods=["POST"])
+@home.route("/add-to-cart", methods=["POST", "GET"])
 def add_product_to_cart():
     if request.method == "POST":
-        product_id = request.form["product_id"]
+        product_id = str(json.loads(request.data)['productId'])
         product = Product.query.get(product_id)
         product_dict = {
             product_id: {
@@ -60,7 +60,7 @@ def add_product_to_cart():
 
         if "shoppingcart" in session:
             if product_id in session["shoppingcart"]:
-                return redirect(request.referrer)
+                return jsonify({})
             else:
                 session["shoppingcart"] = dict(
                     list(session["shoppingcart"].items()) + list(product_dict.items())
@@ -68,7 +68,7 @@ def add_product_to_cart():
         else:
             session["shoppingcart"] = product_dict
 
-        return redirect(request.referrer)
+        return jsonify({})
 
 
 @home.route("/increase-product", methods=["POST"])
@@ -88,13 +88,15 @@ def decrease_product():
         session.modified = True
         return jsonify({})
 
-@home.route('/delete-product', methods=['POST'])
+
+@home.route("/delete-product", methods=["POST"])
 def delete_product():
-    if request.method == 'POST':
+    if request.method == "POST":
         product_id = str(json.loads(request.data)["productId"])
         session["shoppingcart"].pop(product_id)
         session.modified = True
         return jsonify({})
+
 
 def mergedicts(dict1, dict2):
     if isinstance(dict1, list) and isinstance(dict2, list):
@@ -103,3 +105,18 @@ def mergedicts(dict1, dict2):
         return dict(list(dict1.items()) + list(dict2.items()))
     else:
         return False
+
+
+@home.route("/product/<int:id>")
+def get_product_byId(id):
+    product = Product.query.get({id})
+    return jsonify(
+        {
+            "id":str(product.id),
+            "name": product.name,
+            "description": product.description,
+            "category": product.category,
+            "photo_url": product.photo_url,
+            "price": product.price,
+        }
+    )

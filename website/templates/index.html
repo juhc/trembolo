@@ -16,23 +16,22 @@
     <div class="product_cards">
     {% for product in products %}
     <div class="card" style="width: 18rem;">
-            <form action="{{ url_for('home.add_product_to_cart') }}" method="post">
             <img src={{product.photo_url}} class="card-img-top" alt="product">
             <div class="card-body">
                 <h5 class="card-title">{{product.name}}</h5>
                 <p class="card-text">
                     {% if not product.description is none %}
-                        {{product.description}}
+                        {{ product.description }}
                     {% endif %}
                 </p>
+                <p id="{{ product.id }}-priceMenu">{{ product.price }}</p>
                 {% if product.id | string in session["shoppingcart"] %}
-                    <button class="btn btn-primary" type="submit" disabled>Добавлен в корзину</button>
+                    <button id="product{{ product.id }}" onclick="add_product_to_cart({{ product.id }});get_product({{ product.id }})" type="button" class="btn btn-primary" disabled>Добавить в корзину</button>
                 {% else %}
-                    <button class="btn btn-primary" type="submit">Добавить в корзину</button>
+                    <button id="product{{ product.id }}" onclick="add_product_to_cart({{ product.id }});get_product({{ product.id }})" type="button" class="btn btn-primary">Добавить в корзину</button>
                 {% endif %}
             </div>
-            <input type="hidden" name="product_id", value="{{ product.id }}">
-            </form>
+            <input type="hidden" name="product_id" value="{{ product.id }}">
     </div>
     {% endfor %}
     </div>
