@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+Заказ
+{% endblock title %}
+
+{% block content %}
+<h1>Оформление заказа</h1>
+<div>
+    <div>Телефон: {{ user.phone }}</div>
+    <div>Имя: {{ user.name }}</div>
+    <div>Электронный адрес: {{ user.email }}</div>
+    <div>
+        <form class="row g-3" method="post">
+            {% for field in form if field.name not in ['csrf_token', 'submit'] %}
+                {% if field.name == 'address' %}
+                    {{ form_field("col-mb-3", field, "form-control address", "form-control invalid address") }}
+                {% else %}
+                    {{ form_field("col-md-6", field, "form-control", "form-control invalid") }}
+                {% endif %}
+            {% endfor %}
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% macro form_field(div_class, field, field_class, error_field_class) %}
+<div class={{ div_class }}>
+    {{ field.label(class="form-label") }}
+    {% if field.errors %}
+    {{ field(class= error_field_class) }}
+    {% for error in field.errors %}
+    <div class="form-text invalid-text">*{{ error }}</div>
+    {% endfor %}
+    {% else %}
+    {{ field(class=field_class) }}
+    {% endif %}
+</div>
+{% endmacro %}

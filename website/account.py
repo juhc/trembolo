@@ -46,9 +46,9 @@ def sign_up():
 
 def registrate_user(form):
     new_user = User(
-        name=form.name.data,
-        surname=form.surname.data,
-        email=form.email.data,
+        name=form.name.data.capitalize(),
+        surname=form.surname.data.capitalize(),
+        email=form.email.data.lower(),
         phone=form.phone.data,
         password=generate_password_hash(form.password.data, method="sha256"),
     )
@@ -65,7 +65,7 @@ def registrate_user(form):
 
 
 def authenticate(form):
-    user = User.query.filter_by(email=form.email.data).first()
+    user = User.query.filter_by(email=form.email.data.lower()).first()
     if user:
         if check_password_hash(user.password, form.password.data):
             login_user(user)
