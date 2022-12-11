@@ -1,6 +1,6 @@
 function increment_product(product_id) {
-    var product_price =  document.getElementById(product_id + "-price");
-    product_price.innerHTML = parseInt(product_price.innerHTML) + parseInt(product_price.innerHTML)/parseInt(document.getElementById(product_id + "-count").innerHTML)
+    var product_price = document.getElementById(product_id + "-price");
+    product_price.innerHTML = parseInt(product_price.innerHTML) + parseInt(product_price.innerHTML) / parseInt(document.getElementById(product_id + "-count").innerHTML)
     document.getElementById(product_id + "-count").innerHTML++;
     fetch('/increase-product', {
         method: 'POST',
@@ -11,8 +11,8 @@ function increment_product(product_id) {
 
 function decrement_product(product_id) {
     if (document.getElementById(product_id + "-count").innerHTML > 1) {
-        var product_price =  document.getElementById(product_id + "-price");
-        product_price.innerHTML = parseInt(product_price.innerHTML) - parseInt(product_price.innerHTML)/parseInt(document.getElementById(product_id + "-count").innerHTML)
+        var product_price = document.getElementById(product_id + "-price");
+        product_price.innerHTML = parseInt(product_price.innerHTML) - parseInt(product_price.innerHTML) / parseInt(document.getElementById(product_id + "-count").innerHTML)
         document.getElementById(product_id + "-count").innerHTML--;
         fetch('/decrease-product', {
             method: 'POST',
@@ -46,7 +46,7 @@ function cart_change() {
     else {
         document.getElementById('shoppingCart').innerHTML = 'Корзина';
         document.getElementById('cartHeader').innerHTML = 'Корзина пуста :(';
-        
+
         var cart = document.getElementById('offcanvasRight');
         var cartFooter = document.querySelector('div.offcanvas-footer');
 
@@ -59,14 +59,15 @@ function show_cart_footer() {
 
     var cartFooter = document.createElement('div');
     cartFooter.className = 'offcanvas-footer';
-    
+    cart.onclick = () => { window.location.pathname = "/order" };
+
     var order_button = document.createElement('button');
     order_button.textContent = 'К оформлению заказа';
-    
+
     var total_price = document.createElement('p');
     total_price.id = 'cartTotalPrice';
     total_price.textContent = get_total_by_class('productPrice')
-    
+
     cartFooter.appendChild(total_price)
     cartFooter.appendChild(order_button)
 
@@ -142,6 +143,6 @@ function add_product_info_in_cart(product) {
     cartDiv.appendChild(decrease_button);
 
     cart.appendChild(cartDiv);
-    
+
     cart_change();
 };

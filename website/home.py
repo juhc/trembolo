@@ -12,7 +12,7 @@ home = Blueprint("home", __name__)
 def index():
     pizza = Product.query.filter_by(category="Пицца").all()
     snacks = Product.query.filter_by(category="Закуски").all()
-    rolls = Product.query.filter_by(category="Роллы").all()
+    desserts = Product.query.filter_by(category="Десерты").all()
     drinks = Product.query.filter_by(category="Напитки").all()
 
     return render_template(
@@ -20,7 +20,7 @@ def index():
         user=current_user,
         pizza=pizza,
         snacks=snacks,
-        rolls=rolls,
+        desserts=desserts,
         drinks=drinks,
     )
 

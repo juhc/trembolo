@@ -1,28 +1,33 @@
-
 html {
     height: 100%;
 }
 
 body {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     height: 100%;
 }
 
 header {
     flex: 0 0 auto;
-}
-
-.header-container{
+    width: 100%;
+    position: fixed;
     display: flex;
-    flex-direction: row;
-    padding: 20px 0 16px;
-    width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(6, 5, 50, 0.25);
     z-index: 100;
     top: 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1280px;
     justify-content: space-between;
+    background-color: white;
 }
 
 .header-container .left {
@@ -48,15 +53,22 @@ header {
     column-gap: 20px;
 }
 
-.header-container .center ul a{
+.header-container .center ul a {
     text-decoration: none;
+    color: black;
 }
 
-.header-logo i {
-    font-size: 40px;
+.header-container .center ul a:hover {
+    text-decoration: none;
+    color: #f46b45;
+    transform: translateY(-2px);
 }
 
-.left span a{
+.header-logo {
+    height: 120px;
+}
+
+.left span a {
     text-decoration: none;
     color: black;
 }
@@ -73,12 +85,13 @@ header {
     transition-duration: 100ms;
 }
 
-.header-buttons:hover,.header-buttons:focus  {
+.header-buttons:hover,
+.header-buttons:focus {
     box-shadow: 0px 1px 5px black;
     color: black;
 }
 
-.header-container .right{
+.header-container .right {
     display: flex;
     box-sizing: border-box;
     margin-top: auto;
@@ -88,14 +101,14 @@ header {
 
 main {
     flex: 1 0 auto;
-    margin-top: 50px;
+    margin-top: 130px;
     position: relative;
     box-sizing: border-box;
     padding: 0px calc(50% - 640px);
     width: 100%;
 }
 
-main article{
+main article {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -103,6 +116,8 @@ main article{
 
 .page-footer {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 30px;
     color: Black;
     position: sticky;
@@ -115,7 +130,7 @@ main article{
 footer {
     flex: 0 0 auto;
     background-color: #f1f1f1;
-    min-height: 150px;
+    min-height: 120px;
     box-sizing: border-box;
 }
 
@@ -139,14 +154,21 @@ main {
 }
 
 .invalid-text {
-    color:#FF9898;;
+    color: #FF9898;
+    ;
 }
 
 .product_cards {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    column-gap: 37px;
+    justify-content: left;
+}
+
+.card {
+    width: 300px;
+    box-sizing: border-box;
+    margin: 0 10px 10px 10px;
 }
 
 .disabled-button {
@@ -159,4 +181,46 @@ main {
     justify-content: center;
     padding-bottom: 25px;
     background-color: aqua;
+}
+
+.reviews-footer a {
+    text-decoration: none;
+    color: black;
+}
+
+.reviews-footer a:hover {
+    text-decoration: none;
+    color: #f46b45;
+}
+
+.button-color {
+    background-color: white;
+    border: var(--bs-btn-border-width) solid gray;
+    --bs-btn-color: black;
+}
+
+.button-color:hover,
+.button-color:focus,
+.button-color:disabled {
+    background: linear-gradient(180deg, #eea849 10%, #f46b45);
+    border: 1px solid transparent;
+}
+
+.categoryCard {
+    margin-top: 75px;
+    margin-bottom: 25px;
+}
+
+.card img:hover {
+    transition-duration: 250ms;
+}
+
+.card img:hover {
+    transform: translateY(10px);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

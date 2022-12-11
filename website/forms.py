@@ -84,8 +84,8 @@ class OrderForm(FlaskForm):
     address = StringField(
         "Адрес", render_kw={"placeholder": "Адрес"}, validators=[DataRequired()]
     )
-    home = IntegerField('Дом', validators=[DataRequired()])
+    home = StringField('Дом', validators=[DataRequired()],render_kw={'placeholder':'Дом'})
     corps = StringField('Корпус', render_kw={'placeholder':'Корпус'})
-    door_phone = home = IntegerField('Дом')
-    room = IntegerField('Квартира')
+    door_phone = StringField('Домофон', render_kw={'placeholder':'Домофон'})
+    room = StringField('Квартира', render_kw={'placeholder':'Квартира'})
     submit = SubmitField('Подтвердить заказ')
