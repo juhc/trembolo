@@ -1,40 +1,51 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1 id="pizza_category" class="categoryCard">Пицца</h1>
-    {{product_card(pizza)}}
-    <h1 id="snacks_category" class="categoryCard">Закуски</h1>
-    {{product_card(snacks)}}
-    <h1 id="rolls_category" class="categoryCard">Десерты</h1>
-    {{product_card(desserts)}}
-    <h1 id="drinks_category" class="categoryCard">Напитки</h1>
-    {{product_card(drinks)}}
+<h1 id="pizza_category" class="categoryCard">Пицца</h1>
+{{product_card(pizza)}}
+<h1 id="snacks_category" class="categoryCard">Закуски</h1>
+{{product_card(snacks)}}
+<h1 id="rolls_category" class="categoryCard">Десерты</h1>
+{{product_card(desserts)}}
+<h1 id="drinks_category" class="categoryCard">Напитки</h1>
+{{product_card(drinks)}}
 {% endblock content %}
 
 
 {% macro product_card(products) %}
-    <div class="product_cards">
+<div class="product_cards">
     {% for product in products %}
     <div class="card">
-            <img src={{product.photo_url}} class="card-img-top" alt="product">
-            <div class="card-body">
-                <div>
+        <img src={{product.photo_url}} class="card-img-top" alt="product">
+        <div class="card-body">
+            <div>
                 <h5 class="card-title">{{product.name}}</h5>
                 <p class="card-text">
                     {% if not product.description is none %}
-                        {{ product.description }}
+                    {{ product.description }}
                     {% endif %}
                 </p>
-                <p id="{{ product.id }}-priceMenu">{{ product.price }}</p>
+            </div>
+            <div class="articleProduct-footer">
+                <div class="productPrice-section">
+                    <i class="fi fi-br-ruble-sign"></i>
+                    <div id="{{ product.id }}-priceMenu">{{ product.price }}</div>
                 </div>
                 {% if product.id | string in session["shoppingcart"] %}
-                    <button id="product{{ product.id }}" onclick="add_product_to_cart({{ product.id }});get_product({{ product.id }})" type="button" class="btn btn-primary button-color" disabled>Добавить в корзину</button>
+                <button id="product{{ product.id }}"
+                    onclick="add_product_to_cart({{ product.id }});get_product({{ product.id }})" type="button"
+                    class="btn btn-primary button-color" disabled>
+                    <i class="fi fi-br-check"></i>
+                </button>
                 {% else %}
-                    <button id="product{{ product.id }}" onclick="add_product_to_cart({{ product.id }});get_product({{ product.id }})" type="button" class="btn btn-primary button-color">Добавить в корзину</button>
+                <button id="product{{ product.id }}"
+                    onclick="add_product_to_cart({{ product.id }});get_product({{ product.id }})" type="button"
+                    class="btn btn-primary button-color">Добавить в корзину</button>
                 {% endif %}
             </div>
-            <input type="hidden" name="product_id" value="{{ product.id }}">
+        </div>
+        <input type="hidden" name="product_id" value="{{ product.id }}">
     </div>
     {% endfor %}
-    </div>
+</div>
 {% endmacro %}

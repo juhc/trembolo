@@ -10,6 +10,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     {% endblock styles %}
 </head>
@@ -56,13 +57,26 @@
                         <h3 id="cartHeader">Ваш выбор</h3>
                         {% for product_id in cart %}
                         <div id="{{ product_id }}-productDiv">
-                            <p> {{ product_id }} : {{ cart[product_id]['name'] }}</p>
-                            <p id="{{product_id}}-price" class="productPrice">{{
-                                cart[product_id]['price']*cart[product_id]['count'] }}</p>
-                            <p id="{{product_id}}-count" class="productCount"> {{ cart[product_id]['count'] }} </p>
-                            <button onclick="increment_product({{product_id}})">+</button>
-                            <button onclick="decrement_product({{product_id}})">-</button>
-                            <hr>
+                            <div class="productDiv-info">
+                                <img src="{{ cart[product_id]['photo'] }}">
+                                <div>
+                                    <p>{{ cart[product_id]['name'] }}</p>
+                                    <p>{{ cart[product_id]['description'] }}</p>
+                                </div>
+                            </div>
+                            <div class="productDiv-priceAndCount">
+                                <div class="productPrice-section">
+                                    <i class="fi fi-br-ruble-sign"></i>
+                                    <p id="{{product_id}}-price" class="productPrice">{{
+                                        cart[product_id]['price']*cart[product_id]['count'] }}</p>
+                                </div>
+                                <div class="productDiv-buttons">
+                                    <button class="button-forDivProdDiv" onclick="decrement_product({{product_id}})">-</button>
+                                    <p id="{{product_id}}-count" class="productCount"> {{ cart[product_id]['count'] }}
+                                    </p>
+                                    <button class="button-forDivProdDiv" onclick="increment_product({{product_id}})">+</button>
+                                </div>
+                            </div>
                         </div>
                         {% endfor %}
                     </div>
@@ -94,7 +108,8 @@
             <div class="reviews-footer">
                 <a href="{{ url_for('home.reviews') }}">Отзывы клиентов</a>
             </div>
-            <span>Хотите поделиться эмоциями о съеденной пицце? Переходите на <a href="http://scribble.web-ru.ru">Scribble</a>!</span>
+            <span>Хотите поделиться эмоциями о съеденной пицце? Переходите на <a
+                    href="http://scribble.web-ru.ru">Scribble</a>!</span>
         </div>
     </footer>
     {% block scripts %}

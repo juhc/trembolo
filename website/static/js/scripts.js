@@ -30,6 +30,7 @@ function decrement_product(product_id) {
             cart.removeChild(cartDiv_removable);
 
             cart_change();
+            document.getElementById('product' + product_id).innerHTML = 'Добавить в корзину';
             document.getElementById('product' + product_id).disabled = false;
         });
     }
@@ -59,10 +60,10 @@ function show_cart_footer() {
 
     var cartFooter = document.createElement('div');
     cartFooter.className = 'offcanvas-footer';
-    cart.onclick = () => { window.location.pathname = "/order" };
 
     var order_button = document.createElement('button');
     order_button.textContent = 'К оформлению заказа';
+    order_button.onclick = () => { window.location.pathname = "/order" };
 
     var total_price = document.createElement('p');
     total_price.id = 'cartTotalPrice';
@@ -89,6 +90,7 @@ function add_product_to_cart(product_id) {
         method: 'POST',
         body: JSON.stringify({ productId: product_id })
     });
+    document.getElementById('product' + product_id).innerHTML = '<i class="fi fi-br-check"></i>';
     document.getElementById('product' + product_id).disabled = true;
 };
 
