@@ -6,8 +6,8 @@
 
 {% block header %}
 <div class="left">
-    <a class="header-logo" href="{{url_for('home.index')}}"><i class="bi bi-bug-fill"></i></a>
-    <span><a href="{{url_for('home.index')}}">Trembolo</a></span>
+    <a href="{{url_for('home.index')}}"><img class="header-logo"
+            src="{{url_for('static', filename='images/pizza.png')}}"></a>
 </div>
 
 <div class="right">
@@ -17,28 +17,55 @@
 
 {% block content %}
 <h1>Оформление заказа</h1>
-<div>
-    <div>Телефон: {{ user.phone }}</div>
-    <div>Имя: {{ user.name }}</div>
-    <div>Электронный адрес: {{ user.email }}</div>
-    <div>
-        <form class="row g-3" method="post">
-            {% for field in form if field.name not in ['csrf_token', 'submit'] %}
-            {% if field.name == 'address' %}
-            {{ form_field("col-mb-3", field, "form-control address", "form-control invalid address") }}
-            {% else %}
-            {{ form_field("col-md-6", field, "form-control", "form-control invalid") }}
-            {% endif %}
-            {% endfor %}
-            {{ form.submit(class="btn btn-primary") }}
-        </form>
+<div class="OrderContent">
+    <div class="leftSideOrder">
+        <div class="profile-info">
+            <div class="input-container">
+                <label for="name">Имя:</label>
+                <input name="name" class="input" disabled=true value="{{ user.name }}">
+            </div>
+            <div class="input-container">
+                <label for="email">Эл. почта:</label>
+                <input name="email" class="input" disabled=true value="{{ user.email }}">
+            </div>
+            <div class="input-container">
+                <label for="phone">Номер телефона:</label>
+                <input name="phone" class="input" disabled=true value="{{ user.phone }}">
+            </div>
+        </div>
+        <div style="margin-top: 35px;">
+            <form class="row g-3" method="post">
+                {% for field in form if field.name not in ['csrf_token', 'submit'] %}
+                {% if field.name == 'address' %}
+                {{ form_field("col-mb-3", field, "form-control address", "form-control invalid address") }}
+                {% else %}
+                {{ form_field("col-md-6", field, "form-control", "form-control invalid") }}
+                {% endif %}
+                {% endfor %}
+                {{ form.submit(class="orderButton-custom") }}
+            </form>
+        </div>
+    </div>
+    <div class="rightSideOrder">
         <div class="order-info">
             <h3>Состав заказа</h3>
-            <div>
-                {% for product_id in session['shoppingcart'] %}
-                <p>{{ product_id }}</p>
-                {% endfor %}
+            {% for product_id in session['shoppingcart'] %}
+            <div class="productOrderSection">
+                <div class='productOrder-info'>
+                    <div class="title">{{ session['shoppingcart'][product_id]['name'] }} x{{
+                        session['shoppingcart'][product_id]['count'] }}</div>
+                    <div class="description">{{ session['shoppingcart'][product_id]['description'] }}</div>
+                </div>
+                <div class="productPrice-section">
+                    <p>{{ session['shoppingcart'][product_id]['price'] }}</p>
+                    <i class="fi fi-br-ruble-sign"></i>
+                </div>
             </div>
+            {% endfor %}
+        </div>
+        <div class="OrderTotalPrice title productPrice-section">
+            <div>Сумма заказа: {{ total_price }}</div>
+            <i class="fi fi-br-ruble-sign"></i>
         </div>
     </div>
 </div>

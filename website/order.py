@@ -19,4 +19,13 @@ def apply_order():
 
     else:
         form = OrderForm()
-        return render_template("order.html", form=form, user=current_user)
+        total_price = sum(
+            [
+                session["shoppingcart"][product_id]["price"]
+                * session["shoppingcart"][product_id]["count"]
+                for product_id in session["shoppingcart"]
+            ]
+        )
+        return render_template(
+            "order.html", form=form, user=current_user, total_price=total_price
+        )

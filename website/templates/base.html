@@ -53,36 +53,48 @@
                         <h3 id="cartHeader">Корзина пуста :(</h3>
                     </div>
                     {% else %}
-                    <div class="offcanvas-body">
+                    <div class="offcanvas-body offcanvas-body-color">
                         <h3 id="cartHeader">Ваш выбор</h3>
                         {% for product_id in cart %}
-                        <div id="{{ product_id }}-productDiv">
+                        <div id="{{ product_id }}-productDiv" class="productDiv-castom">
                             <div class="productDiv-info">
                                 <img src="{{ cart[product_id]['photo'] }}">
                                 <div>
-                                    <p>{{ cart[product_id]['name'] }}</p>
-                                    <p>{{ cart[product_id]['description'] }}</p>
+                                    <div class="title">{{ cart[product_id]['name'] }}</div>
+                                    <div class="description">{{ cart[product_id]['description'] }}</div>
                                 </div>
                             </div>
                             <div class="productDiv-priceAndCount">
                                 <div class="productPrice-section">
-                                    <i class="fi fi-br-ruble-sign"></i>
                                     <p id="{{product_id}}-price" class="productPrice">{{
                                         cart[product_id]['price']*cart[product_id]['count'] }}</p>
+                                    <i class="fi fi-br-ruble-sign"></i>
                                 </div>
                                 <div class="productDiv-buttons">
-                                    <button class="button-forDivProdDiv" onclick="decrement_product({{product_id}})">-</button>
-                                    <p id="{{product_id}}-count" class="productCount"> {{ cart[product_id]['count'] }}
-                                    </p>
-                                    <button class="button-forDivProdDiv" onclick="increment_product({{product_id}})">+</button>
+                                    <button class="button-forDivProdDiv icon"
+                                        onclick="decrement_product({{product_id}})"><i
+                                            class="fi fi-br-minus"></i></button>
+                                    <span id="{{product_id}}-count" class="productCount"> {{ cart[product_id]['count']
+                                        }}
+                                    </span>
+                                    <button class="button-forDivProdDiv icon"
+                                        onclick="increment_product({{product_id}})"><i
+                                            class="fi fi-br-plus"></i></button>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
                     <div class="offcanvas-footer">
-                        <p id="cartTotalPrice"></p>
-                        <a href="{{ url_for('order.apply_order') }}"><button>К оформлению заказа</button></a>
+                        <div class="cartTotalPrice-div">
+                            <p>Итоговая стоимость:</p>
+                            <div class="productPrice-section">
+                                <p id="cartTotalPrice"></p>
+                                <i class="fi fi-br-ruble-sign"></i>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('order.apply_order') }}"><button class="orderButton-custom">К оформлению
+                                заказа</button></a>
                     </div>
                     {% endif %}
                 </div>

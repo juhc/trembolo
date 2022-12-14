@@ -177,7 +177,21 @@ main {
     flex-direction: column;
     justify-content: center;
     padding-bottom: 25px;
-    background-color: aqua;
+    background-color: white;
+    padding: 24px 24px 35px;
+    box-shadow: 0px -2px 10px rgba(6, 5, 50, 0.25);
+}
+
+.offcanvas-body-color{
+    background: rgb(243, 243, 247);
+}
+
+.productDiv-castom{
+    margin-top: 20px;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(6, 5, 50, 0.25);
+    border-radius: 5px;
+    padding: 8px 8px;
 }
 
 .reviews-footer a {
@@ -194,6 +208,7 @@ main {
     background-color: white;
     border: var(--bs-btn-border-width) solid gray;
     --bs-btn-color: black;
+    --bs-btn-active-border-color: none;
 }
 
 .button-color:hover,
@@ -227,6 +242,7 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center ;
 }
 
 .productPrice-section{
@@ -263,4 +279,90 @@ main {
     background: none;
     border: none;
     padding: 0 8px;
+}
+
+.cartTotalPrice-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.orderButton-custom{
+    width: 100%;
+    border-radius: 25px;
+    padding: 5px 0px;
+    background: linear-gradient(180deg, #eea849 10%, #f46b45);
+    border: 1px solid transparent;
+    color: white;
+}
+
+.orderButton-custom:hover{
+    background: linear-gradient(180deg, #c68d3d 10%, #de613f);
+}
+
+.icon{
+    line-height: 0px;
+}
+
+.OrderContent{
+    display: flex;
+    flex-direction: row;
+    column-gap: 25%;
+}
+
+.rightSideOrder{
+    box-shadow: 0px 0px 10px rgba(6, 5, 50, 0.25);
+    width: 600px;
+    border-radius: 15px;
+}
+
+.productOrderSection{
+    display: flex;
+    flex-direction: row;
+    margin-top: 24px;
+    margin-bottom: 15px;
+}
+
+.order-info{
+    border-bottom: 1px solid rgb(226, 226, 233);
+}
+
+.OrderTotalPrice{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.rightSideOrder{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 24px;
+}
+
+.description{
+    font-size: 12px;
+}
+
+.title{
+    font-size: 20px;
+}
+
+.profile-info{
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+}
+
+.input-container{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input{
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: rgb(243, 243, 247);
+    border: 1px solid rgb(226, 226, 233);
 }

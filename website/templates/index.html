@@ -28,8 +28,8 @@
             </div>
             <div class="articleProduct-footer">
                 <div class="productPrice-section">
-                    <i class="fi fi-br-ruble-sign"></i>
                     <div id="{{ product.id }}-priceMenu">{{ product.price }}</div>
+                    <i class="fi fi-br-ruble-sign"></i>
                 </div>
                 {% if product.id | string in session["shoppingcart"] %}
                 <button id="product{{ product.id }}"

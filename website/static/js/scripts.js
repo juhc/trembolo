@@ -61,16 +61,29 @@ function show_cart_footer() {
     var cartFooter = document.createElement('div');
     cartFooter.className = 'offcanvas-footer';
 
-    var order_button = document.createElement('button');
-    order_button.textContent = 'К оформлению заказа';
-    order_button.onclick = () => { window.location.pathname = "/order" };
+    var cartTotalPrice = document.createElement('div');
+    cartTotalPrice.className = 'cartTotalPrice-div';
+    cartTotalPrice.innerHTML = '<p>Итоговая стоимость:</p>'
+
+    productPriceSection = document.createElement('div');
+    productPriceSection.className = 'productPrice-section';
 
     var total_price = document.createElement('p');
     total_price.id = 'cartTotalPrice';
-    total_price.textContent = get_total_by_class('productPrice')
+    total_price.textContent = get_total_by_class('productPrice');
 
-    cartFooter.appendChild(total_price)
-    cartFooter.appendChild(order_button)
+    productPriceSection.appendChild(total_price);
+    productPriceSection.innerHTML += '<i class="fi fi-br-ruble-sign"></i>';   
+    
+    cartTotalPrice.appendChild(productPriceSection);
+
+    var order_button = document.createElement('button');
+    order_button.className = 'orderButton-custom';
+    order_button.textContent = 'К оформлению заказа';
+    order_button.onclick = () => { window.location.pathname = "/order" };
+
+    cartFooter.appendChild(cartTotalPrice);
+    cartFooter.appendChild(order_button);
 
     cart.appendChild(cartFooter);
 }
@@ -111,38 +124,76 @@ function add_product_info_in_cart(product) {
         show_cart_footer();
 
     var cart = document.querySelector('div.offcanvas-body');
+
     var cartDiv = document.createElement('div');
     cartDiv.id = product.id + "-productDiv";
+    cartDiv.className = 'productDiv-castom';
 
-    var product_info = document.createElement('p')
-    description = ' '
-    if (product.description)
-        description = product.description
-    product_info.textContent = ':'.concat(product.name, description, product.category, product.price);
+    var photo = document.createElement('img');
+    console.log(product)
+    photo.src = product.photo_url;
 
-    var product_count = document.createElement('p');
+    div_name_description = document.createElement('div');
+
+    var name = document.createElement('div');
+    name.className = 'title';
+    name.innerHTML = product.name;
+
+    var description = document.createElement('div')
+    description.className = 'description';
+    description.innerHTML = product.description;
+
+    div_name_description.appendChild(name)
+    div_name_description.appendChild(description)
+
+    var product_info = document.createElement('div');
+    product_info.className = 'productDiv-info';
+
+    product_info.appendChild(photo);
+    product_info.appendChild(div_name_description);
+    cartDiv.append(product_info)
+
+    var price_and_count_div = document.createElement('div');
+    price_and_count_div.className = 'productDiv-priceAndCount';
+
+    var productPriceSection = document.createElement('div');
+    productPriceSection.className = 'productPrice-section';
+
+    var product_price = document.createElement('p');
+    product_price.className = 'productPrice';
+    product_price.textContent = product.price;
+    product_price.id = product.id + '-price';
+
+    productPriceSection.appendChild(product_price);
+    productPriceSection.innerHTML += '<i class="fi fi-br-ruble-sign"></i>';
+
+    price_and_count_div.appendChild(productPriceSection);
+
+    var decrease_button = document.createElement('button');
+    decrease_button.innerHTML = '<i class="fi fi-br-minus"></i>';
+    decrease_button.className = 'button-forDivProdDiv icon'
+    decrease_button.onclick = function () { decrement_product(product.id) };
+
+    var increase_button = document.createElement('button')
+    increase_button.innerHTML = '<i class="fi fi-br-plus"></i>';
+    increase_button.className = 'button-forDivProdDiv icon';
+    increase_button.onclick = function () { increment_product(product.id) };
+
+    var product_count = document.createElement('span');
     product_count.className = 'productCount';
     product_count.textContent = '1';
     product_count.id = product.id + '-count';
 
-    var product_price = document.createElement('p');
-    product_price.className = 'productPrice';
-    product_price.textContent = product.price
-    product_price.id = product.id + '-price';
+    var div_for_buttons = document.createElement('div');
+    div_for_buttons.className = 'productDiv-buttons';
 
-    var increase_button = document.createElement('button')
-    increase_button.textContent = '+';
-    increase_button.onclick = function () { increment_product(product.id) };
+    div_for_buttons.appendChild(decrease_button);
+    div_for_buttons.appendChild(product_count)
+    div_for_buttons.appendChild(increase_button);
 
-    var decrease_button = document.createElement('button');
-    decrease_button.textContent = '-';
-    decrease_button.onclick = function () { decrement_product(product.id) };
+    price_and_count_div.appendChild(div_for_buttons)
 
-    cartDiv.appendChild(product_info);
-    cartDiv.appendChild(product_count);
-    cartDiv.appendChild(product_price)
-    cartDiv.appendChild(increase_button);
-    cartDiv.appendChild(decrease_button);
+    cartDiv.appendChild(price_and_count_div);
 
     cart.appendChild(cartDiv);
 
