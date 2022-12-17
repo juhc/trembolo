@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, session, jsonify
+from flask import Blueprint, render_template, redirect, request, session, jsonify, url_for, send_from_directory
 from flask_login import current_user
 from .forms import ReviewForm
 from .models import Review, User, Product
@@ -120,3 +120,7 @@ def get_product_byId(id):
             "price": product.price,
         }
     )
+
+@home.route("/robots.txt")
+def robots_txt():
+    return send_from_directory('static','robots.txt')
