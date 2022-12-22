@@ -54,7 +54,9 @@
                 <div class='productOrder-info'>
                     <div class="title">{{ session['shoppingcart'][product_id]['name'] }} x{{
                         session['shoppingcart'][product_id]['count'] }}</div>
+                    {% if not session['shoppingcart'][product_id]['description'] is none %}
                     <div class="description">{{ session['shoppingcart'][product_id]['description'] }}</div>
+                    {% endif %}
                 </div>
                 <div class="productPrice-section">
                     <p>{{ session['shoppingcart'][product_id]['price'] }}</p>

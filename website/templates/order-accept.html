@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+Оформление заказа
+{% endblock title %}
+
+{% block header %}
+<div class="left">
+    <a href="{{url_for('home.index')}}"><img class="header-logo"
+            src="{{url_for('static', filename='images/pizza.png')}}"></a>
+</div>
+
+<div class="right">
+
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="order-accept-content">
+    <h1>Ваш заказ успешно оформлен!</h1>
+    <a href="{{ url_for('home.index') }}"><button class="orderButton-custom">Вернуться на главную страницу</button></a>
+</div>
+{% endblock content %}

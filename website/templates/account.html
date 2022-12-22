@@ -36,7 +36,7 @@
         </div>
         {% endfor %}
         {{ form.submit(class="btn btn-primary button-color") }}
-        <a href="{{url_for('account.sign_up')}}"><button type="button" class="btn btn-primary button-color">Регистрация</button></a>
-        <a href="#"><button type="button" class="btn btn-primary button-color">Забыли пароль?</button></a>
+        <a href="{{ url_for('account.sign_up') }}"><button type="button" class="btn btn-primary button-color">Регистрация</button></a>
+        <a href="{{ url_for('account.password_recovery') }}"><button type="button" class="btn btn-primary button-color">Забыли пароль?</button></a>
     </form>
 {% endblock content %}

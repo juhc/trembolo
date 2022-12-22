@@ -89,3 +89,26 @@ class OrderForm(FlaskForm):
     door_phone = StringField('Домофон', render_kw={'placeholder':'Домофон'})
     room = StringField('Квартира', render_kw={'placeholder':'Квартира'})
     submit = SubmitField('Подтвердить заказ')
+
+class PasswordRecoveryForm(FlaskForm):
+    email = StringField(
+        "Адрес электронной почты",
+        validators=[DataRequired(), Email("Указан неверный адрес электронной почты")],
+        render_kw={"placeholder": "Введите адрес электронной почты"},
+    )
+    submit = SubmitField('Сменить пароль')
+
+class PasswordChangeForm(FlaskForm):
+    password = PasswordField(
+        "Новый пароль",
+        validators=[
+            DataRequired(),
+            Length(min=4, message=f"Минимальная длина пароля от %{min}d символов"),
+            EqualTo("confirm_password", message="Пароли не совпадают"),
+        ],
+        render_kw={"placeholder": "Введите пароль"},
+    )
+    confirm_password = PasswordField(
+        "Подтверждение пароля", render_kw={"placeholder": "Введите пароль еще раз"}
+    )
+    submit = SubmitField('Сменить пароль')
