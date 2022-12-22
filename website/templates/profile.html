@@ -1,8 +1,39 @@
 {% extends "base.html" %}
 
+{% block title %}
+{{user.name}} {{user.surname}}
+{% endblock title %}
+
 {% block content %}
-    <p>Имя: {{user.name}}</p>
-    <p>Фамилия: {{user.surname}}</p>
-    <p>Адрес электронной почты: {{user.email}}</p>
-    <p>Номер телефона: {{user.phone}}</p>
+{% for category, message in get_flashed_messages(with_categories=true) %}
+{% if category == 'success'%}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{% endif %}
+{% endfor %}
+
+<h1>Личные данные</h1>
+<div class="profile-info">
+    <div class="input-container">
+        <label for="name">Имя:</label>
+        <input name="name" class="input" disabled=true value="{{ user.name }}">
+    </div>
+    <div class="input-container">
+        <label for="surname">Фамилия:</label>
+        <input name="surname" class="input" disabled=true value="{{ user.surname }}">
+    </div>
+    <div class="input-container">
+        <label for="email">Эл. почта:</label>
+        <input name="email" class="input" disabled=true value="{{ user.email }}">
+    </div>
+    <div class="input-container">
+        <label for="phone">Номер телефона:</label>
+        <input name="phone" class="input" disabled=true value="{{ user.phone }}">
+    </div>
+</div>
 {% endblock content %}
