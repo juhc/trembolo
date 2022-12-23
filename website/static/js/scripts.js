@@ -199,3 +199,9 @@ function add_product_info_in_cart(product) {
 
     cart_change();
 };
+
+
+//Выбор оценки в отзыве
+function set_rating(value){
+    document.getElementById('ratingValue').value = value;
+};

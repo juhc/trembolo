@@ -30,7 +30,8 @@ def reviews():
     review_form = ReviewForm()
 
     if review_form.validate_on_submit():
-        new_review = Review(data=review_form.data.data, user_id=current_user.id)
+        rating = request.form.get('ratingValue')
+        new_review = Review(data=review_form.data.data, user_id=current_user.id, rating=rating)
         db.session.add(new_review)
         db.session.commit()
 

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from .models import User
 
@@ -74,7 +74,10 @@ class ReviewForm(FlaskForm):
     data = TextAreaField(
         "Отзыв",
         render_kw={"placeholder": "Отзыв"},
-        validators=[DataRequired()],
+        validators=[
+            DataRequired(),
+            Length(max=512),
+        ],
         id="floatingTextarea2",
     )
     submit = SubmitField("Отправить отзыв")
@@ -84,11 +87,14 @@ class OrderForm(FlaskForm):
     address = StringField(
         "Адрес", render_kw={"placeholder": "Адрес"}, validators=[DataRequired()]
     )
-    home = StringField('Дом', validators=[DataRequired()],render_kw={'placeholder':'Дом'})
-    corps = StringField('Корпус', render_kw={'placeholder':'Корпус'})
-    door_phone = StringField('Домофон', render_kw={'placeholder':'Домофон'})
-    room = StringField('Квартира', render_kw={'placeholder':'Квартира'})
-    submit = SubmitField('Подтвердить заказ')
+    home = StringField(
+        "Дом", validators=[DataRequired()], render_kw={"placeholder": "Дом"}
+    )
+    corps = StringField("Корпус", render_kw={"placeholder": "Корпус"})
+    door_phone = StringField("Домофон", render_kw={"placeholder": "Домофон"})
+    room = StringField("Квартира", render_kw={"placeholder": "Квартира"})
+    submit = SubmitField("Подтвердить заказ")
+
 
 class PasswordRecoveryForm(FlaskForm):
     email = StringField(
@@ -96,7 +102,8 @@ class PasswordRecoveryForm(FlaskForm):
         validators=[DataRequired(), Email("Указан неверный адрес электронной почты")],
         render_kw={"placeholder": "Введите адрес электронной почты"},
     )
-    submit = SubmitField('Сменить пароль')
+    submit = SubmitField("Сменить пароль")
+
 
 class PasswordChangeForm(FlaskForm):
     password = PasswordField(
@@ -111,4 +118,4 @@ class PasswordChangeForm(FlaskForm):
     confirm_password = PasswordField(
         "Подтверждение пароля", render_kw={"placeholder": "Введите пароль еще раз"}
     )
-    submit = SubmitField('Сменить пароль')
+    submit = SubmitField("Сменить пароль")

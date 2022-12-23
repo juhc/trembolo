@@ -1,27 +1,50 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Отзывы
+Отзывы
 {% endblock title %}
 
 {% block content %}
-    <h1>Отзывы клиентов</h1> 
-    {% for review in reviews %}
-    <ul>
-        <li>{{ review.data }}</li>
-        <li>{{ review.date }}</li>
-        <li>{{ (User.query.filter_by(id=review.user_id).first()).name }} {{ (User.query.filter_by(id=review.user_id).first()).surname }}</li>
-    </ul>
-    {% endfor %}
+<h1>Отзывы клиентов</h1>
 
-    {% if user.is_authenticated %}
-        <form method="POST">
-            {{ review_form.hidden_tag() }}
-            <div class="form-floating mb-3">
-                {{ review_form.data(class="form-control") }}
-                {{ review_form.data.label(for="floatingTextarea2") }}        
-            </div>
-            {{ review_form.submit(class="btn btn-primary") }}
-        </form>
-    {% endif %}
+{% for review in reviews %}
+<ul>
+    <li>{{ (User.query.filter_by(id=review.user_id).first()).name }} {{ review.date }}</li>
+    <li>{{ review.data }}</li>
+    {% set inactive_stars = 5 - review.rating %}
+    <div class="rating-mini">
+        {% for i in range(review.rating | int) %}
+            <span class="active"></span>
+        {% endfor %}
+        {% for i in range(inactive_stars | int) %}
+            <span></span>
+        {% endfor %}
+    </div>
+</ul>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<h2>Напишите свой отзыв</h2>
+<form method="POST">
+    {{ review_form.hidden_tag() }}
+    <div class="form-floating mb-3">
+        {{ review_form.data(class="form-control") }}
+        {{ review_form.data.label(for="floatingTextarea2") }}
+        <div class="rating-area">
+            <input type="radio" id="star-5" name="rating" value="5">
+            <label onclick="set_rating(5)" for="star-5" title="Оценка «5»"></label>
+            <input type="radio" id="star-4" name="rating" value="4">
+            <label onclick="set_rating(4)" for="star-4" title="Оценка «4»"></label>
+            <input type="radio" id="star-3" name="rating" value="3">
+            <label onclick="set_rating(3)" for="star-3" title="Оценка «3»"></label>
+            <input type="radio" id="star-2" name="rating" value="2">
+            <label onclick="set_rating(2)" for="star-2" title="Оценка «2»"></label>
+            <input type="radio" id="star-1" name="rating" value="1">
+            <label onclick="set_rating(1)" for="star-1" title="Оценка «1»"></label>
+        </div>
+    </div>
+    <input type="text" name="ratingValue" id="ratingValue" value="" hidden required>
+    {{ review_form.submit(class="btn btn-primary") }}
+</form>
+{% endif %}
 {% endblock content %}

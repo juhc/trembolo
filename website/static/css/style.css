@@ -182,11 +182,11 @@ main {
     box-shadow: 0px -2px 10px rgba(6, 5, 50, 0.25);
 }
 
-.offcanvas-body-color{
+.offcanvas-body-color {
     background: rgb(243, 243, 247);
 }
 
-.productDiv-castom{
+.productDiv-castom {
     margin-top: 20px;
     background: white;
     box-shadow: 0px 0px 10px rgba(6, 5, 50, 0.25);
@@ -195,11 +195,19 @@ main {
 }
 
 .reviews-footer a {
-    text-decoration: none;
     color: black;
 }
 
 .reviews-footer a:hover {
+    text-decoration: none;
+    color: #f46b45;
+}
+
+.link-class {
+    color: black;
+}
+
+.link-class:hover {
     text-decoration: none;
     color: #f46b45;
 }
@@ -242,28 +250,28 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center ;
+    align-items: center;
 }
 
-.productPrice-section{
+.productPrice-section {
     display: flex;
     flex-direction: row;
 }
 
-.productDiv-info{
+.productDiv-info {
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid rgb(226, 226, 233);
 }
 
-.productDiv-priceAndCount{
+.productDiv-priceAndCount {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-top: 15px;
 }
 
-.productDiv-buttons{
+.productDiv-buttons {
     display: flex;
     flex-direction: row;
     background-color: rgb(243, 243, 247);
@@ -272,22 +280,22 @@ main {
     align-items: center;
     border-radius: 100px;
     width: 100px;
-    height: 32px; 
+    height: 32px;
 }
 
-.button-forDivProdDiv{
+.button-forDivProdDiv {
     background: none;
     border: none;
     padding: 0 8px;
 }
 
-.cartTotalPrice-div{
+.cartTotalPrice-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.orderButton-custom{
+.orderButton-custom {
     width: 100%;
     border-radius: 25px;
     padding: 5px 0px;
@@ -296,70 +304,70 @@ main {
     color: white;
 }
 
-.orderButton-custom:hover{
+.orderButton-custom:hover {
     background: linear-gradient(180deg, #c68d3d 10%, #de613f);
 }
 
-.icon{
+.icon {
     line-height: 0px;
 }
 
-.OrderContent{
+.OrderContent {
     display: flex;
     flex-direction: row;
     column-gap: 25%;
 }
 
-.rightSideOrder{
+.rightSideOrder {
     box-shadow: 0px 0px 10px rgba(6, 5, 50, 0.25);
     width: 600px;
     border-radius: 15px;
 }
 
-.productOrderSection{
+.productOrderSection {
     display: flex;
     flex-direction: row;
     margin-top: 24px;
     margin-bottom: 15px;
 }
 
-.order-info{
+.order-info {
     border-bottom: 1px solid rgb(226, 226, 233);
 }
 
-.OrderTotalPrice{
+.OrderTotalPrice {
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
-.rightSideOrder{
+.rightSideOrder {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px 24px;
 }
 
-.description{
+.description {
     font-size: 12px;
 }
 
-.title{
+.title {
     font-size: 20px;
 }
 
-.profile-info{
+.profile-info {
     display: flex;
     flex-direction: column;
     max-width: 300px;
 }
 
-.input-container{
+.input-container {
     margin-top: 24px;
     display: flex;
     flex-direction: column;
 }
 
-.input{
+.input {
     margin-top: 5px;
     padding: 5px 10px;
     border-radius: 10px;
@@ -367,8 +375,93 @@ main {
     border: 1px solid rgb(226, 226, 233);
 }
 
-.order-accept-content{
+.order-accept-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.reviews-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/* Rating */
+.rating-area {
+    overflow: hidden;
+    width: 265px;
+}
+
+.rating-area:not(:checked)>input {
+    display: none;
+}
+
+.rating-area:not(:checked)>label {
+    float: right;
+    width: 42px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 32px;
+    color: lightgrey;
+    text-shadow: 1px 1px #bbb;
+}
+
+.rating-area:not(:checked)>label:before {
+    content: '★';
+}
+
+.rating-area>input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+}
+
+.rating-area:not(:checked)>label:hover,
+.rating-area:not(:checked)>label:hover~label {
+    color: gold;
+}
+
+.rating-area>input:checked+label:hover,
+.rating-area>input:checked+label:hover~label,
+.rating-area>input:checked~label:hover,
+.rating-area>input:checked~label:hover~label,
+.rating-area>label:hover~input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+}
+
+.rate-area>label:active {
+    position: relative;
+}
+
+
+.rating-mini {
+
+	display: inline-block;
+
+	font-size: 0;
+
+}
+
+.rating-mini span {
+
+	padding: 0;
+
+	font-size: 20px;
+
+	line-height: 1;
+
+	color: lightgrey;
+
+}
+
+.rating-mini > span:before {
+	content: '★';
+}
+
+.rating-mini > span.active {
+	color: gold;
 }
