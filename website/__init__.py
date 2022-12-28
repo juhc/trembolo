@@ -1,5 +1,14 @@
 from flask import Flask, render_template
-from .main import SECRET_KEY, DB_NAME, MAIL_PASSWORD, MAIL_PORT, MAIL_SERVER, MAIL_USERNAME, MAIL_USE_SSL, MAIL_USE_TLS
+from .main import (
+    SECRET_KEY,
+    DB_NAME,
+    MAIL_PASSWORD,
+    MAIL_PORT,
+    MAIL_SERVER,
+    MAIL_USERNAME,
+    MAIL_USE_SSL,
+    MAIL_USE_TLS,
+)
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_admin import Admin
@@ -9,10 +18,12 @@ from itsdangerous import URLSafeTimedSerializer
 import datetime
 import os
 
+
 db = SQLAlchemy()
 login_manager = LoginManager()
 mail = Mail()
-url_serializer = URLSafeTimedSerializer(SECRET_KEY, salt='password-recovery')
+url_serializer = URLSafeTimedSerializer(SECRET_KEY, salt="password-recovery")
+
 
 def create_app():
     app = Flask(__name__)
@@ -20,18 +31,18 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     app.permanent_session_lifetime = datetime.timedelta(hours=2)
 
-    app.config['MAIL_SERVER'] = MAIL_SERVER
-    app.config['MAIL_PORT'] = MAIL_PORT
-    app.config['MAIL_USERNAME'] = MAIL_USERNAME
-    app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
-    app.config['MAIL_USE_TLS'] = MAIL_USE_TLS
-    app.config['MAIL_USE_SSL'] = MAIL_USE_SSL
+    app.config["MAIL_SERVER"] = MAIL_SERVER
+    app.config["MAIL_PORT"] = MAIL_PORT
+    app.config["MAIL_USERNAME"] = MAIL_USERNAME
+    app.config["MAIL_PASSWORD"] = MAIL_PASSWORD
+    app.config["MAIL_USE_TLS"] = MAIL_USE_TLS
+    app.config["MAIL_USE_SSL"] = MAIL_USE_SSL
 
     mail.init_app(app)
 
     from .models import User, Review, Product, Cart
 
-    admin = Admin(app, template_mode='bootstrap4')
+    admin = Admin(app, template_mode="bootstrap4")
     admin.add_view(AdminView(User, db.session))
     admin.add_view(AdminView(Review, db.session))
     admin.add_view(AdminView(Product, db.session))
@@ -40,7 +51,7 @@ def create_app():
     @app.errorhandler(404)
     def pageNotFound(error):
         return render_template("404.html", user=current_user)
-    
+
     @app.errorhandler(403)
     def pageNotFound(error):
         return render_template("403.html", user=current_user)
@@ -59,7 +70,7 @@ def create_app():
     login_manager.login_message = "Для доступа к данной странице требуется авторизация"
     login_manager.login_message_category = "error"
     login_manager.init_app(app)
-    
+
     create_db(app)
     return app
 

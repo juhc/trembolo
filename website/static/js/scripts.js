@@ -73,8 +73,8 @@ function show_cart_footer() {
     total_price.textContent = get_total_by_class('productPrice');
 
     productPriceSection.appendChild(total_price);
-    productPriceSection.innerHTML += '<i class="fi fi-br-ruble-sign"></i>';   
-    
+    productPriceSection.innerHTML += '<i class="fi fi-br-ruble-sign"></i>';
+
     cartTotalPrice.appendChild(productPriceSection);
 
     var order_button = document.createElement('button');
@@ -202,6 +202,6 @@ function add_product_info_in_cart(product) {
 
 
 //Выбор оценки в отзыве
-function set_rating(value){
+function set_rating(value) {
     document.getElementById('ratingValue').value = value;
 };

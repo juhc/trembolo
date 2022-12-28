@@ -2,4 +2,6 @@ User-agent:*
 Disallow: /order/
 Disallow: /account/*
 Disallow: /admin
-Allow: *
+Allow: /
+
+Host: http://trembolo.web-ru.ru/

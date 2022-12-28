@@ -1,9 +1,17 @@
-from flask import Blueprint, render_template, redirect, request, session, jsonify, url_for, send_from_directory
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    session,
+    jsonify,
+    send_from_directory,
+)
 from flask_login import current_user
 from .forms import ReviewForm
 from .models import Review, User, Product
 import json
 from . import db
+
 
 home = Blueprint("home", __name__)
 
@@ -30,8 +38,10 @@ def reviews():
     review_form = ReviewForm()
 
     if review_form.validate_on_submit():
-        rating = request.form.get('ratingValue')
-        new_review = Review(data=review_form.data.data, user_id=current_user.id, rating=rating)
+        rating = request.form.get("ratingValue")
+        new_review = Review(
+            data=review_form.data.data, user_id=current_user.id, rating=rating
+        )
         db.session.add(new_review)
         db.session.commit()
 
@@ -47,7 +57,7 @@ def reviews():
 @home.route("/add-to-cart", methods=["POST", "GET"])
 def add_product_to_cart():
     if request.method == "POST":
-        product_id = str(json.loads(request.data)['productId'])
+        product_id = str(json.loads(request.data)["productId"])
         product = Product.query.get(product_id)
         product_dict = {
             product_id: {
@@ -113,7 +123,7 @@ def get_product_byId(id):
     product = Product.query.get({id})
     return jsonify(
         {
-            "id":str(product.id),
+            "id": str(product.id),
             "name": product.name,
             "description": product.description,
             "category": product.category,
@@ -122,6 +132,19 @@ def get_product_byId(id):
         }
     )
 
+
 @home.route("/robots.txt")
 def robots_txt():
-    return send_from_directory('static','robots.txt')
+    return send_from_directory("static", "robots.txt")
+
+
+@home.route("/entry", methods=['POST','GET'])
+def entry():
+    global online_counter
+    
+    if request.method == 'POST':
+        online_counter -= 1
+        return jsonify({})
+
+    online_counter += 1
+    return jsonify({"online_users": online_counter})
