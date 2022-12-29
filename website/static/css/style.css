@@ -12,6 +12,7 @@ header {
     flex: 0 0 auto;
     width: 100%;
     position: fixed;
+    min-width: min-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,7 +51,7 @@ header {
 
 .header-container .center li {
     display: flex;
-    column-gap: 20px;
+    column-gap: 35px;
 }
 
 .header-container .center ul a {
@@ -121,7 +122,8 @@ main article {
     font-size: 30px;
     color: Black;
     position: sticky;
-    width: 1280px;
+    max-width: 1280px;
+    width: 100%;
     min-height: 100%;
     margin: 0 auto;
     justify-content: center;
@@ -320,8 +322,12 @@ main {
 
 .rightSideOrder {
     box-shadow: 0px 0px 10px rgba(6, 5, 50, 0.25);
-    width: 600px;
+    width: 350px;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 24px;
 }
 
 .productOrderSection {
@@ -338,13 +344,6 @@ main {
 .OrderTotalPrice {
     margin-top: 20px;
     margin-bottom: 10px;
-}
-
-.rightSideOrder {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 15px 24px;
 }
 
 .description {
@@ -392,7 +391,7 @@ main {
 /* Rating */
 .rating-area {
     overflow: hidden;
-    width: 265px;
+    width: 210px;
 }
 
 .rating-area:not(:checked)>input {
@@ -440,28 +439,164 @@ main {
 
 .rating-mini {
 
-	display: inline-block;
+    display: inline-block;
 
-	font-size: 0;
+    font-size: 0;
 
 }
 
 .rating-mini span {
 
-	padding: 0;
+    padding: 0;
 
-	font-size: 20px;
+    font-size: 20px;
 
-	line-height: 1;
+    line-height: 1;
 
-	color: lightgrey;
+    color: lightgrey;
 
 }
 
-.rating-mini > span:before {
-	content: '★';
+.rating-mini span:before {
+    content: '★';
 }
 
-.rating-mini > span.active {
-	color: gold;
+.rating-mini span.active {
+    color: gold;
+}
+
+.send-review-button {
+    background: linear-gradient(180deg, #eea849 10%, #f46b45);
+    color: white;
+    --bs-btn-border-color: 1px solid transparent;
+    --bs-btn-hover-border-color: 1px solid transparent;
+}
+
+.send-review-button:hover {
+    background: linear-gradient(180deg, #c68d3d 10%, #de613f);
+}
+
+.menu-for-mobile {
+    display: none;
+}
+
+.mobile-header-buttons {
+    display: none;
+}
+
+.orderMobile{
+    display: none;
+}
+
+@media screen and (max-width: 960px) {
+    .header-logo {
+        height: 80px;
+    }
+
+    .header-container .center {
+        display: flex;
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: 12px;
+    }
+
+    .header-container .center ul {
+        list-style: none;
+        margin: auto 0 auto;
+    }
+
+    .header-container .center li {
+        display: flex;
+        column-gap: 15px;
+    }
+
+    .menu-for-mobile {
+        display: block;
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+        max-width: 960px;
+        justify-content: space-between;
+        background-color: white;
+    }
+
+    .page-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.7rem;
+        color: Black;
+        position: sticky;
+        max-width: 960px;
+        width: 100%;
+        min-height: 100%;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .mobile-header-buttons {
+        display: block;
+    }
+
+    .header-button-desktop {
+        display: none;
+    }
+
+    .menu-for-mobile {
+        margin: 0px 10px;
+    }
+
+    .header-buttons {
+        font-size: 15px;
+        height: 25px;
+    }
+
+    main {
+        padding: 0px 50px;
+    }
+
+    footer {
+        flex: 0 0 auto;
+        background-color: #f1f1f1;
+        min-height: 80px;
+        box-sizing: border-box;
+        box-shadow: 0px -2px 10px rgba(6, 5, 50, 0.25);
+    }
+
+    .categoryCard {
+        margin-top: 55px;
+        margin-bottom: 25px;
+    }
+
+    .reviews-content img {
+        height: 300px;
+    }
+
+    .orderDesktop{
+        display: none;
+    }
+
+    .orderMobile{
+        display: block;
+    }
+
+    .OrderContent {
+        display: flex;
+        flex-direction: column;
+        column-gap: 25%;
+    }
+
+    .rightSideOrder {
+        box-shadow: 0px 0px 10px rgba(6, 5, 50, 0.25);
+        width: 100%;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px 24px;
+    }
 }
