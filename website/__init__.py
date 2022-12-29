@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from .main import (
     SECRET_KEY,
     DB_NAME,
@@ -17,13 +17,32 @@ from .admin import AdminView
 from itsdangerous import URLSafeTimedSerializer
 import datetime
 import os
+from flask_socketio import SocketIO, emit
 
 
 db = SQLAlchemy()
 login_manager = LoginManager()
 mail = Mail()
 url_serializer = URLSafeTimedSerializer(SECRET_KEY, salt="password-recovery")
+socketio = SocketIO(ping_interval=8, ping_timeout=5)
+clients = []
 
+
+@socketio.on("connect", namespace="/")
+def connect():
+    if not request.remote_addr in clients:
+        clients.append(request.remote_addr)
+        print(clients)
+    emit("users", {"user_count": len(clients)}, broadcast=True)
+
+@socketio.on("disconnect", namespace="/")
+def disconnect():
+    try:
+        clients.remove(request.remote_addr)
+    except:
+        pass
+    print(clients)
+    emit("users", {"user_count": len(clients)}, broadcast=True)
 
 def create_app():
     app = Flask(__name__)
@@ -39,6 +58,8 @@ def create_app():
     app.config["MAIL_USE_SSL"] = MAIL_USE_SSL
 
     mail.init_app(app)
+
+    socketio.init_app(app)
 
     from .models import User, Review, Product, Cart
 

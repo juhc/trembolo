@@ -173,6 +173,9 @@
     </main>
     <footer>
         <div class="page-footer">
+            <div class="userCounterStats">
+                Количество людей на сайте:&nbsp<div id='user_counter'></div><i class="fi fi-rr-users-alt"></i>
+            </div>
             <span>&copy; Trembolo | 2022</span>
             <div class="reviews-footer">
                 <a href="{{ url_for('home.reviews') }}">Отзывы клиентов</a>
@@ -189,6 +192,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         window.onload = cart_change();
+    </script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var namespace = '/';
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            socket.on('users', function (users) {
+                userCount = document.getElementById('user_counter');
+                userCount.innerHTML = users.user_count;
+            });
+        });
     </script>
     {% endblock scripts %}
 </body>
