@@ -63,7 +63,7 @@ def password_recovery():
             )
             link = url_for("account.password_change", token=token, _external=True)
             message.body = (
-                f"Чтобы сменить пароль, вам необходимо перейти по ссылке {link}"
+                f"Чтобы сменить пароль, вам необходимо перейти по <a href={link}>ссылке</a>"
             )
             try:
                 mail.send(message)
@@ -84,7 +84,7 @@ def password_recovery():
 def password_change(token):
     form = PasswordChangeForm()
     try:
-        email = url_serializer.loads(token, max_age=3600)
+        email = url_serializer.loads(token, max_age=300)
     except BadTimeSignature:
         abort(404)
     except BadSignature:

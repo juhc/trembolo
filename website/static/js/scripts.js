@@ -40,13 +40,17 @@ function decrement_product(product_id) {
 function cart_change() {
     total = get_total_by_class('productCount')
     if (total > 0) {
-        document.getElementById('shoppingCart').innerHTML = 'Корзина | ' + total;
+        for(item of document.getElementsByClassName('shoppingCart'))
+            item.innerHTML = 'Корзина | ' + total;
+        document.getElementById('shoppingCartMobile').innerHTML = '<i class="fi fi-rr-shopping-cart"></i>('+total+')';
         document.getElementById('cartHeader').innerHTML = 'Ваш выбор';
         document.getElementById('cartTotalPrice').innerHTML = get_total_by_class('productPrice');
     }
     else {
-        document.getElementById('shoppingCart').innerHTML = 'Корзина';
+        for(item of document.getElementsByClassName('shoppingCart'))
+            item.innerHTML = 'Корзина';
         document.getElementById('cartHeader').innerHTML = 'Корзина пуста :(';
+        document.getElementById('shoppingCartMobile').innerHTML = '<i class="fi fi-rr-shopping-cart"></i>';
 
         var cart = document.getElementById('offcanvasRight');
         var cartFooter = document.querySelector('div.offcanvas-footer');
@@ -73,8 +77,8 @@ function show_cart_footer() {
     total_price.textContent = get_total_by_class('productPrice');
 
     productPriceSection.appendChild(total_price);
-    productPriceSection.innerHTML += '<i class="fi fi-br-ruble-sign"></i>';   
-    
+    productPriceSection.innerHTML += '<i class="fi fi-br-ruble-sign"></i>';
+
     cartTotalPrice.appendChild(productPriceSection);
 
     var order_button = document.createElement('button');
@@ -198,4 +202,10 @@ function add_product_info_in_cart(product) {
     cart.appendChild(cartDiv);
 
     cart_change();
+};
+
+
+//Выбор оценки в отзыве
+function set_rating(value) {
+    document.getElementById('ratingValue').value = value;
 };

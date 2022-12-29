@@ -2,6 +2,35 @@
 <html lang="ru">
 
 <head>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(91834924, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/91834924" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1E68FWJ7EE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-1E68FWJ7EE');
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Trembolo{% endblock %}</title>
@@ -11,6 +40,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     {% endblock styles %}
 </head>
@@ -36,10 +67,33 @@
             </div>
 
             <div class="right">
-                <button class="header-buttons" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                    aria-controls="offcanvasRight">
-                    <div id="shoppingCart">Корзина</div>
-                </button>
+                <div class="menu-for-mobile">
+                    <div class="mobile-header-buttons">
+                        <button class="header-buttons" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <div id="shoppingCartMobile"><i class="fi fi-rr-shopping-cart"></i></div>
+                        </button>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="mobile-header-buttons"><a href="{{url_for('account.profile')}}"><button
+                                class="header-buttons" type="button"><i class="fi fi-rr-user"></i></button></a>
+                    </div>
+                    <div class="mobile-header-buttons"><a href="{{url_for('account.logout')}}"><button
+                                class="header-buttons" type="button"><i class="fi fi-rr-exit"></i></button></a>
+                    </div>
+                    {% else %}
+                    <div class="mobile-header-buttons"><a href="{{url_for('account.login')}}"><button
+                                class="header-buttons" type="button"><i class="fi fi-rr-enter"></i></button></a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="header-button-desktop">
+                    <button class="header-buttons" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <div class="shoppingCart">Корзина</div>
+                    </button>
+                </div>
 
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
                     aria-labelledby="offcanvasRightLabel">
@@ -74,7 +128,8 @@
                                     <button class="button-forDivProdDiv icon"
                                         onclick="decrement_product({{product_id}})"><i
                                             class="fi fi-br-minus"></i></button>
-                                    <span id="{{product_id}}-count" class="productCount"> {{ cart[product_id]['count']
+                                    <span id="{{product_id}}-count" class="productCount"> {{
+                                        cart[product_id]['count']
                                         }}
                                     </span>
                                     <button class="button-forDivProdDiv icon"
@@ -99,11 +154,13 @@
                     {% endif %}
                 </div>
                 {% if user.is_authenticated %}
-                <a href="{{url_for('account.profile')}}"><button class="header-buttons"
-                        type="button">Профиль</button></a>
-                <a href="{{url_for('account.logout')}}"><button class="header-buttons" type="button">Выход</button></a>
+                <div class="header-button-desktop"><a href="{{url_for('account.profile')}}"><button
+                            class="header-buttons" type="button">Профиль</button></a></div>
+                <div class="header-button-desktop"><a href="{{url_for('account.logout')}}"><button
+                            class="header-buttons" type="button">Выход</button></a></div>
                 {% else %}
-                <a href="{{url_for('account.login')}}"><button class="header-buttons" type="button">Войти</button></a>
+                <div class="header-button-desktop"><a href="{{url_for('account.login')}}"><button class="header-buttons"
+                            type="button">Войти</button></a></div>
                 {% endif %}
             </div>
             {% endblock header %}
@@ -120,8 +177,8 @@
             <div class="reviews-footer">
                 <a href="{{ url_for('home.reviews') }}">Отзывы клиентов</a>
             </div>
-            <span>Хотите поделиться эмоциями о съеденной пицце? Переходите на <a
-                    href="http://scribble.web-ru.ru">Scribble</a>!</span>
+            <span>Хотите поделиться эмоциями о съеденной пицце? Переходите на <a href="http://scribble.web-ru.ru"
+                    class="link-class">Scribble</a>!</span>
         </div>
     </footer>
     {% block scripts %}

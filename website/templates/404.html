@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>404 ERROR!!!</h1>
+    <div class="reviews-content">
+    <a href="{{ url_for('home.index') }}"><img src="{{ url_for('static',filename='images/error.png')}}"></a>
+    <h1>Страница не найдена...</h1>
+    </div>
 {% endblock content %}  404 ERROR!!!

@@ -18,6 +18,32 @@
 {% block content %}
 <h1>Оформление заказа</h1>
 <div class="OrderContent">
+    <div class="orderMobile">
+        <div class="rightSideOrder">
+            <div class="order-info">
+                <h3>Состав заказа</h3>
+                {% for product_id in session['shoppingcart'] %}
+                <div class="productOrderSection">
+                    <div class='productOrder-info'>
+                        <div class="title">{{ session['shoppingcart'][product_id]['name'] }} x{{
+                            session['shoppingcart'][product_id]['count'] }}</div>
+                        {% if not session['shoppingcart'][product_id]['description'] is none %}
+                        <div class="description">{{ session['shoppingcart'][product_id]['description'] }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="productPrice-section">
+                        <p>{{ session['shoppingcart'][product_id]['price'] }}</p>
+                        <i class="fi fi-br-ruble-sign"></i>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="OrderTotalPrice title productPrice-section">
+                <div>Сумма заказа: {{ total_price }}</div>
+                <i class="fi fi-br-ruble-sign"></i>
+            </div>
+        </div>
+    </div>
     <div class="leftSideOrder">
         <div class="profile-info">
             <div class="input-container">
@@ -46,28 +72,30 @@
             </form>
         </div>
     </div>
-    <div class="rightSideOrder">
-        <div class="order-info">
-            <h3>Состав заказа</h3>
-            {% for product_id in session['shoppingcart'] %}
-            <div class="productOrderSection">
-                <div class='productOrder-info'>
-                    <div class="title">{{ session['shoppingcart'][product_id]['name'] }} x{{
-                        session['shoppingcart'][product_id]['count'] }}</div>
-                    {% if not session['shoppingcart'][product_id]['description'] is none %}
-                    <div class="description">{{ session['shoppingcart'][product_id]['description'] }}</div>
-                    {% endif %}
+    <div class="orderDesktop">
+        <div class="rightSideOrder">
+            <div class="order-info">
+                <h3>Состав заказа</h3>
+                {% for product_id in session['shoppingcart'] %}
+                <div class="productOrderSection">
+                    <div class='productOrder-info'>
+                        <div class="title">{{ session['shoppingcart'][product_id]['name'] }} x{{
+                            session['shoppingcart'][product_id]['count'] }}</div>
+                        {% if not session['shoppingcart'][product_id]['description'] is none %}
+                        <div class="description">{{ session['shoppingcart'][product_id]['description'] }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="productPrice-section">
+                        <p>{{ session['shoppingcart'][product_id]['price'] }}</p>
+                        <i class="fi fi-br-ruble-sign"></i>
+                    </div>
                 </div>
-                <div class="productPrice-section">
-                    <p>{{ session['shoppingcart'][product_id]['price'] }}</p>
-                    <i class="fi fi-br-ruble-sign"></i>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <div class="OrderTotalPrice title productPrice-section">
-            <div>Сумма заказа: {{ total_price }}</div>
-            <i class="fi fi-br-ruble-sign"></i>
+            <div class="OrderTotalPrice title productPrice-section">
+                <div>Сумма заказа: {{ total_price }}</div>
+                <i class="fi fi-br-ruble-sign"></i>
+            </div>
         </div>
     </div>
 </div>
