@@ -488,6 +488,11 @@ main {
     display: none;
 }
 
+.userCounterStats{
+    display: flex;
+    flex-direction: row;
+}
+
 @media screen and (max-width: 960px) {
     .header-logo {
         height: 80px;

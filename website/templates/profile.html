@@ -4,6 +4,9 @@
 {{user.name}} {{user.surname}}
 {% endblock title %}
 
+{% block description %}Аккаунт пользователя Trembolo. Указана личная информация пользователя.{% endblock description %}
+{% block keywords %}Имя, фамилия, телефон, эл. почта{% endblock keywords %}
+
 {% block content %}
 {% for category, message in get_flashed_messages(with_categories=true) %}
 {% if category == 'success'%}
