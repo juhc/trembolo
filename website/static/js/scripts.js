@@ -136,6 +136,7 @@ function add_product_info_in_cart(product) {
     var photo = document.createElement('img');
     console.log(product)
     photo.src = product.photo_url;
+    photo.style.height = '100px';
 
     div_name_description = document.createElement('div');
 

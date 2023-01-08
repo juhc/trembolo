@@ -5,3 +5,4 @@ Disallow: /admin
 Allow: /
 
 Host: http://trembolo.web-ru.ru/
+Sitemap: http://trembolo.web-ru.ru/sitemap.xml

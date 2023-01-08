@@ -114,10 +114,14 @@
                         {% for product_id in cart %}
                         <div id="{{ product_id }}-productDiv" class="productDiv-castom">
                             <div class="productDiv-info">
-                                <img src="{{ cart[product_id]['photo'] }}">
+                                <img height="100px" src="{{ cart[product_id]['photo'] }}">
                                 <div>
                                     <div class="title">{{ cart[product_id]['name'] }}</div>
+                                    {% if cart[product_id]['description'] is none %}
+                                    <div class="description"></div>
+                                    {% else %}
                                     <div class="description">{{ cart[product_id]['description'] }}</div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="productDiv-priceAndCount">
