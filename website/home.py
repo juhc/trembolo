@@ -138,13 +138,6 @@ def robots_txt():
     return send_from_directory("static", "robots.txt")
 
 
-@home.route("/entry", methods=['POST','GET'])
-def entry():
-    global online_counter
-    
-    if request.method == 'POST':
-        online_counter -= 1
-        return jsonify({})
-
-    online_counter += 1
-    return jsonify({"online_users": online_counter})
+@home.route("/sitemap.xml")
+def sitemap_xml():
+    return send_from_directory("static", "sitemap.xml")

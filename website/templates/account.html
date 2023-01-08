@@ -1,45 +1,46 @@
 {% extends "base.html" %}
 
-{% block title %}
-    Вход
-{% endblock title %}
+{% block title %}Вход{% endblock title %}
 
-{% block description %}Страница входа в аккаунт на сайте Trembolo. Укажите эл. почту и пароль. Если вы забыли пароль, то можете его восстановить, нажав на кнопку "забыл пароль".{% endblock description %}
+{% block description %}Страница входа в аккаунт на сайте Trembolo. Укажите эл. почту и пароль. Если вы забыли пароль, то
+можете его восстановить, нажав на кнопку "забыл пароль".{% endblock description %}
 {% block keywords %}Аутентификация пользователя{% endblock keywords %}
 
 {% block content %}
-    <h1>Вход</h1>
-    
-    {% for category, message in get_flashed_messages(with_categories=true) %}
-        {% if category == 'success'%}
-            <div class="alert alert-success" role="alert">
-                {{message}}
-            </div>
-        {% else %}
-            <div class="alert alert-danger" role="alert">
-                {{message}}
-            </div>
-        {% endif %}
-    {% endfor %}
+<h1>Вход</h1>
 
-    <form method="post">
-        {{ form.hidden_tag() }}
+{% for category, message in get_flashed_messages(with_categories=true) %}
+{% if category == 'success'%}
+<div class="alert alert-success" role="alert">
+    {{message}}
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{% endif %}
+{% endfor %}
 
-        {% for field in form if field.name not in ['csrf_token', 'submit'] %}
-        <div class="mb-3">
-        {{ field.label(class="form-label") }} 
+<form method="post">
+    {{ form.hidden_tag() }}
+
+    {% for field in form if field.name not in ['csrf_token', 'submit'] %}
+    <div class="mb-3">
+        {{ field.label(class="form-label") }}
         {% if field.errors %}
-            {{ field(class="form-control invalid")}}
-            {% for error in field.errors%}
-                <div class="form-text invalid-text">*{{ error }}</div>
-            {% endfor %}
-        {% else %}
-            {{ field(class="form-control") }}
-        {% endif %}
-        </div>
+        {{ field(class="form-control invalid")}}
+        {% for error in field.errors%}
+        <div class="form-text invalid-text">*{{ error }}</div>
         {% endfor %}
-        {{ form.submit(class="btn btn-primary button-color") }}
-        <a href="{{ url_for('account.sign_up') }}"><button type="button" class="btn btn-primary button-color">Регистрация</button></a>
-        <a href="{{ url_for('account.password_recovery') }}"><button type="button" class="btn btn-primary button-color">Забыли пароль?</button></a>
-    </form>
+        {% else %}
+        {{ field(class="form-control") }}
+        {% endif %}
+    </div>
+    {% endfor %}
+    {{ form.submit(class="btn btn-primary button-color") }}
+    <a href="{{ url_for('account.sign_up') }}"><button type="button"
+            class="btn btn-primary button-color">Регистрация</button></a>
+    <a href="{{ url_for('account.password_recovery') }}"><button type="button"
+            class="btn btn-primary button-color">Забыли пароль?</button></a>
+</form>
 {% endblock content %}

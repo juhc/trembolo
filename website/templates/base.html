@@ -12,14 +12,14 @@
         })
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        ym(91834924, "init", {
+        ym(91920740, "init", {
             clickmap: true,
             trackLinks: true,
             accurateTrackBounce: true
         });
     </script>
     <noscript>
-        <div><img src="https://mc.yandex.ru/watch/91834924" style="position:absolute; left:-9999px;" alt="" /></div>
+        <div><img src="https://mc.yandex.ru/watch/91920740" style="position:absolute; left:-9999px;" alt="" /></div>
     </noscript>
     <!-- /Yandex.Metrika counter -->
     <!-- Google tag (gtag.js) -->
@@ -114,10 +114,14 @@
                         {% for product_id in cart %}
                         <div id="{{ product_id }}-productDiv" class="productDiv-castom">
                             <div class="productDiv-info">
-                                <img src="{{ cart[product_id]['photo'] }}">
+                                <img height="100px" src="{{ cart[product_id]['photo'] }}">
                                 <div>
                                     <div class="title">{{ cart[product_id]['name'] }}</div>
+                                    {% if cart[product_id]['description'] is none %}
+                                    <div class="description"></div>
+                                    {% else %}
                                     <div class="description">{{ cart[product_id]['description'] }}</div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="productDiv-priceAndCount">
@@ -175,9 +179,6 @@
     </main>
     <footer>
         <div class="page-footer">
-            <div class="userCounterStats">
-                Количество людей на сайте:&nbsp<div id='user_counter'></div><i class="fi fi-rr-users-alt"></i>
-            </div>
             <span>&copy; Trembolo | 2022</span>
             <div class="reviews-footer">
                 <a href="{{ url_for('home.reviews') }}">Отзывы клиентов</a>
@@ -194,17 +195,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         window.onload = cart_change();
-    </script>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var namespace = '/';
-            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
-            socket.on('users', function (users) {
-                userCount = document.getElementById('user_counter');
-                userCount.innerHTML = users.user_count;
-            });
-        });
     </script>
     {% endblock scripts %}
 </body>

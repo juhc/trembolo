@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}
-Отзывы
-{% endblock title %}
+{% block title %}Отзывы{% endblock title %}
 
-{% block description %}Страница с отзывами. Здесь вы можете оценить доставку Trembolo, поделиться своими эмоциями и пожеланиями. Мы готовы выслушать любые ваши жалобы и предложения.{% endblock description %}
+{% block description %}Страница с отзывами. Здесь вы можете оценить доставку Trembolo, поделиться своими эмоциями и
+пожеланиями. Мы готовы выслушать любые ваши жалобы и предложения.{% endblock description %}
 {% block keywords %}Отзывы, оценка{% endblock keywords %}
 
 {% block content %}
@@ -17,10 +16,10 @@
     {% set inactive_stars = 5 - review.rating %}
     <div class="rating-mini">
         {% for i in range(review.rating | int) %}
-            <span class="active"></span>
+        <span class="active"></span>
         {% endfor %}
         {% for i in range(inactive_stars | int) %}
-            <span></span>
+        <span></span>
         {% endfor %}
     </div>
 </ul>

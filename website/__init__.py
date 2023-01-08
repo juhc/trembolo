@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from .main import (
     SECRET_KEY,
     DB_NAME,
@@ -32,7 +32,6 @@ clients = []
 def connect():
     if not request.remote_addr in clients:
         clients.append(request.remote_addr)
-        print(clients)
     emit("users", {"user_count": len(clients)}, broadcast=True)
 
 @socketio.on("disconnect", namespace="/")
@@ -41,7 +40,6 @@ def disconnect():
         clients.remove(request.remote_addr)
     except:
         pass
-    print(clients)
     emit("users", {"user_count": len(clients)}, broadcast=True)
 
 def create_app():
@@ -71,11 +69,11 @@ def create_app():
 
     @app.errorhandler(404)
     def pageNotFound(error):
-        return render_template("404.html", user=current_user)
+        return render_template("404.html", user=current_user), 404
 
     @app.errorhandler(403)
     def pageNotFound(error):
-        return render_template("403.html", user=current_user)
+        return render_template("403.html", user=current_user), 403
 
     db.init_app(app)
 
