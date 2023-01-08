@@ -203,7 +203,7 @@
     <script>
         $(document).ready(function () {
             var namespace = '/';
-            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            var socket = io.connect();
             socket.on('users', function (users) {
                 userCount = document.getElementById('user_counter');
                 userCount.innerHTML = users.user_count;
