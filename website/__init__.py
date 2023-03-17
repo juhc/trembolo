@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request
 from .main import (
     SECRET_KEY,
     DB_NAME,
@@ -24,7 +24,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 mail = Mail()
 url_serializer = URLSafeTimedSerializer(SECRET_KEY, salt="password-recovery")
-socketio = SocketIO(ping_interval=8, ping_timeout=5)
+socketio = SocketIO(ping_interval=10, ping_timeout=5)
 clients = []
 
 
