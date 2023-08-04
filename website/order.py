@@ -32,7 +32,7 @@ def apply_order():
         order_msg += f"<p>Итоговая стоимость: {total_price} руб.</p>"
 
         msg_to_user = Message(
-            "Ваш заказ принят", sender=MAIL_USERNAME, recipients=["chalkov2002@mail.ru"]
+            "Ваш заказ принят", sender=MAIL_USERNAME, recipients=[current_user.email]
         )
         msg_to_user.html = order_msg
 
